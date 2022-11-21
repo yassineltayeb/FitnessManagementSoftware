@@ -17,7 +17,7 @@ public class CoachService : ICoachService
     private readonly IMapper _mapper;
     private readonly IConfiguration _configuration;
 
-    public CoachService(IUnitOfWork unitOfWork,IMapper mapper, IConfiguration configuration)
+    public CoachService(IUnitOfWork unitOfWork, IMapper mapper, IConfiguration configuration)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
@@ -28,15 +28,21 @@ public class CoachService : ICoachService
     {
         var coachToAdd = _mapper.Map<Coach>(signUpRequestViewModel);
 
+        coachToAdd.Password = BCrypt.Net.BCrypt.HashPassword(coachToAdd.Password);
+
         var coachAdded = await _unitOfWork.CoachRepository.AddCoach(coachToAdd);
 
         return GenerateToken(coachAdded);
     }
 
     public async Task<SignUpResponseViewModel> Login(LoginRequestViewModel loginRequestViewModel)
-    { 
+    {
         var coach = await _unitOfWork.CoachRepository.GetCoachByEmail(loginRequestViewModel.Email);
-        return GenerateToken(coach);
+
+        if (BCrypt.Net.BCrypt.Verify(loginRequestViewModel.Password, coach.Password))
+            return GenerateToken(coach);
+
+        return null;
     }
 
     private SignUpResponseViewModel GenerateToken(Coach coach)
