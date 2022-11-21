@@ -3,5 +3,7 @@
 public interface IUnitOfWork
 {
     public ICoachRepository CoachRepository { get; }
-    public Task<int> SaveAsync();
+    void BeginTransaction();
+    Task<int> SaveAllAsync();
+    Task Commit();
 }
