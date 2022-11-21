@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Service.Interface;
 using Service.ViewModels.Coach;
 
 namespace FitnessManagementSoftware.Controller;
 
 [Route("api/coaches")]
+[Authorize]
 [ApiController]
 public class CoachesController : ControllerBase
 {
@@ -15,6 +17,7 @@ public class CoachesController : ControllerBase
         _coachService = coachService;
     }
 
+    [AllowAnonymous]
     [HttpPost("signup")]
     public async Task<SignUpResponseViewModel> CoachSignUp([FromBody] SignUpRequestViewModel signUpRequestViewModel)
     {
@@ -23,6 +26,7 @@ public class CoachesController : ControllerBase
         return signUpResponseViewModel;
     }
 
+    [AllowAnonymous]
     [HttpPost("login")]
     public async Task<SignUpResponseViewModel> CoachLogin([FromBody] LoginRequestViewModel loginRequestViewModel)
     {
