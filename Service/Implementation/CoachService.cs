@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Repository.Interface;
 using Service.Interface;
-using Service.ViewModels;
+using Service.ViewModels.Coach;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -31,6 +31,12 @@ public class CoachService : ICoachService
         var coachAdded = await _unitOfWork.CoachRepository.AddCoach(coachToAdd);
 
         return GenerateToken(coachAdded);
+    }
+
+    public async Task<SignUpResponseViewModel> Login(LoginRequestViewModel loginRequestViewModel)
+    { 
+        var coach = await _unitOfWork.CoachRepository.GetCoachByEmail(loginRequestViewModel.Email);
+        return GenerateToken(coach);
     }
 
     private SignUpResponseViewModel GenerateToken(Coach coach)

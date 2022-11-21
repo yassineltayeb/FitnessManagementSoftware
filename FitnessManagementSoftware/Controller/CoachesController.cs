@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Service.Interface;
-using Service.ViewModels;
+using Service.ViewModels.Coach;
 
 namespace FitnessManagementSoftware.Controller;
 
@@ -19,6 +19,14 @@ public class CoachesController : ControllerBase
     public async Task<SignUpResponseViewModel> CoachSignUp([FromBody] SignUpRequestViewModel signUpRequestViewModel)
     {
         var signUpResponseViewModel = await _coachService.SignUp(signUpRequestViewModel);
+
+        return signUpResponseViewModel;
+    }
+
+    [HttpPost("login")]
+    public async Task<SignUpResponseViewModel> CoachLogin([FromBody] LoginRequestViewModel loginRequestViewModel)
+    {
+        var signUpResponseViewModel = await _coachService.Login(loginRequestViewModel);
 
         return signUpResponseViewModel;
     }

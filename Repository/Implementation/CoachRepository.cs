@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using Repository.Interface;
 
 namespace Repository.Implementation;
@@ -18,5 +19,10 @@ public class CoachRepository : ICoachRepository
         await _dbContext.SaveChangesAsync();
 
         return coach;
+    }
+
+    public async Task<Coach> GetCoachByEmail(string email)
+    {
+        return await _dbContext.Coaches.SingleOrDefaultAsync(c => c.Email == email);
     }
 }

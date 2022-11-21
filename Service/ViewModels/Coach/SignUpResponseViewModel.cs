@@ -1,4 +1,4 @@
-﻿namespace Service.ViewModels;
+﻿namespace Service.ViewModels.Coach;
 
 public class SignUpResponseViewModel
 {

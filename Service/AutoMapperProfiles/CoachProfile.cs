@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Domain.Entities;
-using Service.ViewModels;
+using Service.ViewModels.Coach;
 
 namespace Service.AutoMapperProfiles;
 
