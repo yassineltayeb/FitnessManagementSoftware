@@ -12,13 +12,14 @@ public static class CommonConfiguration
         // Filters
         services.AddMvc(option =>
         {
+            option.Filters.Add<ModelStateValidationFilter>();
             option.Filters.Add<HttpResponseExceptionFilter>();
         });
 
         // Fluent Validation
         services.AddFluentValidationAutoValidation();
 
-        // 
+        // Global Error Handling
         services.AddApplicationInsightsTelemetry();
         services.ConfigureTelemetryModule<DependencyTrackingTelemetryModule>((module, _) =>
         {
