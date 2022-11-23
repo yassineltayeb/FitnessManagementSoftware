@@ -30,6 +30,8 @@ public class CoachService : ICoachService
 
         coachToAdd.Password = BCrypt.Net.BCrypt.HashPassword(coachToAdd.Password);
 
+        coachToAdd.CreatedAt = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+
         var coachAdded = await _unitOfWork.CoachRepository.AddCoach(coachToAdd);
 
         return GenerateToken(coachAdded);
