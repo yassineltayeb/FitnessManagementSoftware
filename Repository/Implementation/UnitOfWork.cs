@@ -15,6 +15,7 @@ public class UnitOfWork : IUnitOfWork
     }
 
     public ICoachRepository CoachRepository => new CoachRepository(_dbContext);
+    public IGenderRepository GenderRepository => new GenderRepository(_dbContext);
 
     public async void BeginTransaction()
     {

@@ -11,6 +11,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<City> Cities { get; set; }
     public DbSet<Coach> Coaches { get; set; }
     public DbSet<Country> Countries { get; set; }
+    public DbSet<Gender> Genders { get; set; }
     public DbSet<Member> Members { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

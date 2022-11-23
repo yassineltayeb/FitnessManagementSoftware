@@ -9,6 +9,7 @@ public static class RepositoryConfiguration
     public static void AddRepositoryConfigurations(this IServiceCollection services)
     {
         services.AddScoped<ICoachRepository, CoachRepository>();
+        services.AddScoped<IGenderRepository, GenderRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
     }
 }

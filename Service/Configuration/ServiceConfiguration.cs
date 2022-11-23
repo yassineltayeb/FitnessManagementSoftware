@@ -9,5 +9,6 @@ public static class ServiceConfiguration
     public static void AddServiceConfigurations(this IServiceCollection services)
     {
         services.AddScoped<ICoachService, CoachService>();
+        services.AddScoped<IGenderService, GenderService>();
     }
 }
