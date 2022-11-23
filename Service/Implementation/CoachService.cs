@@ -1,8 +1,10 @@
 using AutoMapper;
 using Domain.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Repository.Interface;
+using Service.Exceptions;
 using Service.Interface;
 using Service.ViewModels.Coach;
 using System.IdentityModel.Tokens.Jwt;
