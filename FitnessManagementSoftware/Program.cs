@@ -30,6 +30,9 @@ builder.Services.AddRepositoryConfigurations();
 // Services
 builder.Services.AddServiceConfigurations();
 
+// Common
+builder.Services.AddCommonConfigurations();
+
 // Adding Authentication
 builder.Services.AddAuthentication(options =>
 {

@@ -3,7 +3,6 @@ using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
 using Service.Implementation;
 using Service.Interface;
-using static Service.ViewModels.Coach.LoginRequestViewModel;
 
 namespace Service.Configuration;
 
