@@ -42,7 +42,7 @@ public class HttpResponseExceptionFilter : IActionFilter
             var knownException = (HttpResponseException)exception;
             object errorObject = knownException.Value is ErrorResponseViewModel errorResponseViewModel ?
                                      errorResponseViewModel :
-                                     new { Error = knownException.Value };
+                                     new { Error = knownException.Value, Code = knownException.StatusCode };
             context.Result = new ObjectResult(errorObject)
             {
                 StatusCode = knownException.StatusCode
