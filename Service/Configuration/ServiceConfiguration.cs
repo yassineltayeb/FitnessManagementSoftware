@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-using FluentValidation.AspNetCore;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Service.Implementation;
 using Service.Interface;
 
@@ -14,7 +12,5 @@ public static class ServiceConfiguration
         services.AddScoped<ICoachService, CoachService>();
         services.AddScoped<ICountryService, CountryService>();
         services.AddScoped<IGenderService, GenderService>();
-
-        services.AddFluentValidationAutoValidation();
     }
 }
