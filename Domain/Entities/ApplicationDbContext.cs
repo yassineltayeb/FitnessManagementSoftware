@@ -8,6 +8,7 @@ public class ApplicationDbContext : DbContext
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options) { }
 
+    public DbSet<City> Cities { get; set; }
     public DbSet<Coach> Coaches { get; set; }
     public DbSet<Country> Countries { get; set; }
     public DbSet<Member> Members { get; set; }
@@ -47,5 +48,8 @@ public class ApplicationDbContext : DbContext
 
         // Countries
         new CountrySeed(modelBuilder).Seed();
+
+        // Cities
+        new CitySeed(modelBuilder).Seed();
     }
 }
