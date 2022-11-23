@@ -8,6 +8,7 @@ public static class ServiceConfiguration
 {
     public static void AddServiceConfigurations(this IServiceCollection services)
     {
+        services.AddScoped<ICityService, CityService>();
         services.AddScoped<ICoachService, CoachService>();
         services.AddScoped<ICountryService, CountryService>();
         services.AddScoped<IGenderService, GenderService>();

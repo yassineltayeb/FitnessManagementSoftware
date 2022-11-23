@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Repository.Interface;
+using Service.Interface;
 using Service.ViewModels.Common;
 
 namespace Service.Implementation;
