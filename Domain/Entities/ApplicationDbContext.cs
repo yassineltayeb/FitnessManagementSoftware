@@ -9,6 +9,7 @@ public class ApplicationDbContext : DbContext
         : base(options) { }
 
     public DbSet<Coach> Coaches { get; set; }
+    public DbSet<Country> Countries { get; set; }
     public DbSet<Member> Members { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -41,6 +42,10 @@ public class ApplicationDbContext : DbContext
         base.OnModelCreating(modelBuilder);
 
         // Seed
+        // Gender
         new GenderSeed(modelBuilder).Seed();
+
+        // Countries
+        new CountrySeed(modelBuilder).Seed();
     }
 }
