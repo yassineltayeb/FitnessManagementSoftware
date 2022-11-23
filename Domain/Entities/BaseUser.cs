@@ -14,6 +14,12 @@ public class BaseUser
     public string Phone { get; set; }
     public string Password { get; set; }
     public DateTime? DateOfBirth { get; set; }
+    [ForeignKey(nameof(Country))]
+    public int? CountryId { get; set; }
+    public Country Country { get; set; }
+    [ForeignKey(nameof(City))]
+    public int? CityId { get; set; }
+    public City City{ get; set; }
     public long CreatedAt { get; set; }
     public long UpdatedAt { get; set; }
     public ICollection<CoachMember> CoachMember { get; set; }
