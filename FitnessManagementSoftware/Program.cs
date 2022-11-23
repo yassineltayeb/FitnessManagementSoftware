@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Repository.Configuration;
-using Service.AutoMapperProfiles;
 using Service.Configuration;
 using System.Text;
 
