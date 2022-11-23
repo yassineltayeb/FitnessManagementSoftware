@@ -15,8 +15,8 @@ public class GenderSeed
     public void Seed()
     {
         _modelBuilder.Entity<Gender>().HasData(
-            new Gender() { Id = 1, GenderName = "Male" },
-            new Gender() { Id = 2, GenderName = "Female" }
+            new Gender() { Id = 1, Name = "Male" },
+            new Gender() { Id = 2, Name = "Female" }
             );
     }
 }
