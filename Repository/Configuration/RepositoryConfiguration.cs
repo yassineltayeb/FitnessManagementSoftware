@@ -8,6 +8,7 @@ public static class RepositoryConfiguration
 {
     public static void AddRepositoryConfigurations(this IServiceCollection services)
     {
+        services.AddScoped<ICityRepository, CityRepository>();
         services.AddScoped<ICoachRepository, CoachRepository>();
         services.AddScoped<ICountryRepository, CountryRepository>();
         services.AddScoped<IGenderRepository, GenderRepository>();
