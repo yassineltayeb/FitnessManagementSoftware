@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Domain.Seeders;
+using Microsoft.EntityFrameworkCore;
 
 namespace Domain.Entities;
 
@@ -38,5 +39,8 @@ public class ApplicationDbContext : DbContext
         });
 
         base.OnModelCreating(modelBuilder);
+
+        // Seed
+        new GenderSeed(modelBuilder).Seed();
     }
 }
