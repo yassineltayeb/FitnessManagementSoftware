@@ -9,8 +9,8 @@ public class SignUpRequestViewModel : IValidatableObject
     public int? GenderId { get; set; }
     public string Email { get; set; }
     public string Phone { get; set; }
-    public int? CountryId { get; set; }
-    public int? CityId { get; set; }
+    public int CountryId { get; set; }
+    public int CityId { get; set; }
     public DateTime? DateOfBirth { get; set; }
     public string Password { get; set; }
 
@@ -37,6 +37,9 @@ public class SignUpRequestViewModel : IValidatableObject
                .NotEmpty()
                .WithMessage("Last Name is required");
 
+            RuleFor(c => c.GenderId)
+               .NotEmpty()
+               .WithMessage("GenderId is required");
 
             RuleFor(c => c.Email)
                .NotEmpty()
@@ -47,6 +50,14 @@ public class SignUpRequestViewModel : IValidatableObject
             RuleFor(c => c.Phone)
               .NotEmpty()
               .WithMessage("Phone is required");
+
+            RuleFor(c => c.CountryId)
+              .NotEmpty()
+              .WithMessage("CountryId is required");
+
+            RuleFor(c => c.CityId)
+              .NotEmpty()
+              .WithMessage("CityId is required");
 
             RuleFor(c => c.Password)
                .NotEmpty()
