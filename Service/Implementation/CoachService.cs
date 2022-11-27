@@ -48,10 +48,13 @@ public class CoachService : ICoachService
     {
         var coach = await _unitOfWork.CoachRepository.GetCoachByEmail(loginRequestViewModel.Email);
 
-        if (BCrypt.Net.BCrypt.Verify(loginRequestViewModel.Password, coach.Password))
-            return GenerateToken(coach);
+        if (coach is null)
+            throw new APIException((int)HttpStatusCode.BadRequest, "Invalid Email/Password");
 
-        throw new APIException((int)HttpStatusCode.BadRequest, "Invalid Email/Password");
+        if (!BCrypt.Net.BCrypt.Verify(loginRequestViewModel.Password, coach.Password))
+            throw new APIException((int)HttpStatusCode.BadRequest, "Invalid Email/Password");
+
+        return GenerateToken(coach);
     }
 
     private SignUpResponseViewModel GenerateToken(Coach coach)
