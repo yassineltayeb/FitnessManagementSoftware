@@ -8,6 +8,7 @@ using Service.Exceptions;
 using Service.Interface;
 using Service.ViewModels.Coach;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net;
 using System.Security.Claims;
 using System.Text;
 
@@ -29,6 +30,10 @@ public class CoachService : ICoachService
     public async Task<SignUpResponseViewModel> SignUp(SignUpRequestViewModel signUpRequestViewModel)
     {
         var coachToAdd = _mapper.Map<Coach>(signUpRequestViewModel);
+
+        var emailExist = await _unitOfWork.CoachRepository.VerifyEmail(signUpRequestViewModel.Email);
+        if (emailExist)
+            throw new APIException((int)HttpStatusCode.BadRequest, "Email already exists");
 
         coachToAdd.Password = BCrypt.Net.BCrypt.HashPassword(coachToAdd.Password);
 

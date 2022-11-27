@@ -25,4 +25,9 @@ public class CoachRepository : ICoachRepository
     {
         return await _dbContext.Coaches.SingleOrDefaultAsync(c => c.Email == email);
     }
+
+    public async Task<bool> VerifyEmail(string email)
+    {
+        return await _dbContext.Coaches.AnyAsync(c => c.Email == email);
+    }
 }
