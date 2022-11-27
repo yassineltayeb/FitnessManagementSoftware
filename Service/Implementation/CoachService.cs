@@ -51,7 +51,7 @@ public class CoachService : ICoachService
         if (BCrypt.Net.BCrypt.Verify(loginRequestViewModel.Password, coach.Password))
             return GenerateToken(coach);
 
-        return null;
+        throw new APIException((int)HttpStatusCode.BadRequest, "Invalid Email/Password");
     }
 
     private SignUpResponseViewModel GenerateToken(Coach coach)
