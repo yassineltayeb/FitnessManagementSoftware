@@ -40,6 +40,7 @@ public class CitiesController : ControllerBase
                 Id = 3,
                 Name = "City 3"
             }};
+
         return cities;
     }
 }
