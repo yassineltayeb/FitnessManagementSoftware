@@ -64,8 +64,7 @@ public class CoachService : ICoachService
             new Claim(ClaimTypes.NameIdentifier, coach.Id.ToString()),
             new Claim(ClaimTypes.Name, coach.FirstName + " " + coach.LastName),
             new Claim(ClaimTypes.Email, coach.Email),
-            new Claim(ClaimTypes.MobilePhone, coach.Phone),
-            new Claim(ClaimTypes.DateOfBirth, coach.DateOfBirth.Value.ToShortDateString())
+            new Claim(ClaimTypes.MobilePhone, coach.Phone)
         };
 
         var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
