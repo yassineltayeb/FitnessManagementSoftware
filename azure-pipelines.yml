@@ -39,9 +39,11 @@ steps:
   inputs:
     command: 'publish'
     publishWebProjects: true
-- task: AzureWebApp@1
+
+- task: AzureRmWebAppDeployment@4
   inputs:
+    ConnectionType: 'AzureRM'
     azureSubscription: 'PlayGroundSubscription(a992b6cf-dcaa-49bb-bc60-a3179faf019e)'
     appType: 'webApp'
-    appName: 'YassinFitnessAPI'
-    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    WebAppName: 'YassinFitnessAPI'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
