@@ -32,3 +32,10 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'PlayGroundSubscription(a992b6cf-dcaa-49bb-bc60-a3179faf019e)'
+    appType: 'webApp'
+    WebAppName: 'YassinFitnessAPI'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
