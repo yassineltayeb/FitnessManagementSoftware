@@ -13,13 +13,13 @@ using System.Text;
 
 namespace Service.Implementation;
 
-public class CoachService : ICoachService
+public class MemberService : IMemberService
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
     private readonly IConfiguration _configuration;
 
-    public CoachService(IUnitOfWork unitOfWork, IMapper mapper, IConfiguration configuration)
+    public MemberService(IUnitOfWork unitOfWork, IMapper mapper, IConfiguration configuration)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
@@ -28,42 +28,42 @@ public class CoachService : ICoachService
 
     public async Task<SignUpResponseViewModel> SignUp(SignUpRequestViewModel signUpRequestViewModel)
     {
-        var coachToAdd = _mapper.Map<Coach>(signUpRequestViewModel);
+        var memberToAdd = _mapper.Map<Member>(signUpRequestViewModel);
 
-        var emailExist = await _unitOfWork.CoachRepository.VerifyEmail(signUpRequestViewModel.Email);
+        var emailExist = await _unitOfWork.MemberRepository.VerifyEmail(signUpRequestViewModel.Email);
         if (emailExist)
             throw new APIException((int)HttpStatusCode.BadRequest, "Email already exists");
 
-        coachToAdd.Password = BCrypt.Net.BCrypt.HashPassword(coachToAdd.Password);
+        memberToAdd.Password = BCrypt.Net.BCrypt.HashPassword(memberToAdd.Password);
 
-        coachToAdd.CreatedAt = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+        memberToAdd.CreatedAt = DateTimeOffset.Now.ToUnixTimeMilliseconds();
 
-        var coachAdded = await _unitOfWork.CoachRepository.AddCoach(coachToAdd);
+        var memberAdded = await _unitOfWork.MemberRepository.AddMember(memberToAdd);
 
-        return GenerateToken(coachAdded);
+        return GenerateToken(memberAdded);
     }
 
     public async Task<SignUpResponseViewModel> Login(LoginRequestViewModel loginRequestViewModel)
     {
-        var coach = await _unitOfWork.CoachRepository.GetCoachByEmail(loginRequestViewModel.Email);
+        var member = await _unitOfWork.MemberRepository.GetMemberhByEmail(loginRequestViewModel.Email);
 
-        if (coach is null)
+        if (member is null)
             throw new APIException((int)HttpStatusCode.BadRequest, "Invalid Email/Password");
 
-        if (!BCrypt.Net.BCrypt.Verify(loginRequestViewModel.Password, coach.Password))
+        if (!BCrypt.Net.BCrypt.Verify(loginRequestViewModel.Password, member.Password))
             throw new APIException((int)HttpStatusCode.BadRequest, "Invalid Email/Password");
 
-        return GenerateToken(coach);
+        return GenerateToken(member);
     }
 
-    private SignUpResponseViewModel GenerateToken(Coach coach)
+    private SignUpResponseViewModel GenerateToken(Member member)
     {
         var authClaims = new List<Claim>
         {
-            new Claim(ClaimTypes.NameIdentifier, coach.Id.ToString()),
-            new Claim(ClaimTypes.Name, coach.FirstName + " " + coach.LastName),
-            new Claim(ClaimTypes.Email, coach.Email),
-            new Claim(ClaimTypes.MobilePhone, coach.Phone)
+            new Claim(ClaimTypes.NameIdentifier, member.Id.ToString()),
+            new Claim(ClaimTypes.Name, member.FirstName + " " + member.LastName),
+            new Claim(ClaimTypes.Email, member.Email),
+            new Claim(ClaimTypes.MobilePhone, member.Phone)
         };
 
         var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));

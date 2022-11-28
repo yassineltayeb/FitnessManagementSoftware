@@ -12,5 +12,6 @@ public static class ServiceConfiguration
         services.AddScoped<ICoachService, CoachService>();
         services.AddScoped<ICountryService, CountryService>();
         services.AddScoped<IGenderService, GenderService>();
+        services.AddScoped<IMemberService, MemberService>();
     }
 }

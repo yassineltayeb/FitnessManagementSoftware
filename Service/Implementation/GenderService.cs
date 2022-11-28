@@ -2,11 +2,6 @@
 using Repository.Interface;
 using Service.Interface;
 using Service.ViewModels.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Service.Implementation;
 
