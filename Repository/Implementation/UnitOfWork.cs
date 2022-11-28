@@ -18,6 +18,7 @@ public class UnitOfWork : IUnitOfWork
     public IGenderRepository GenderRepository => new GenderRepository(_dbContext);
     public ICountryRepository CountryRepository => new CountryRepository(_dbContext);
     public ICityRepository CityRepository => new CityRepository(_dbContext);
+    public IMemberRepository MemberRepository => new MemberRepository(_dbContext);
 
     public async void BeginTransaction()
     {
