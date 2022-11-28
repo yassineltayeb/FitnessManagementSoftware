@@ -39,7 +39,13 @@ steps:
   inputs:
     command: 'publish'
     publishWebProjects: true
-
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(Build.BinariesDirectory)'
+    includeRootFolder: true
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
 - task: AzureRmWebAppDeployment@4
   inputs:
     ConnectionType: 'AzureRM'
