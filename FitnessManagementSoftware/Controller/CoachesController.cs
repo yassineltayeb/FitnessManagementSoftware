@@ -21,17 +21,13 @@ public class CoachesController : ControllerBase
     [HttpPost("signup")]
     public async Task<SignUpResponseViewModel> CoachSignUp([FromBody] SignUpRequestViewModel signUpRequestViewModel)
     {
-        var signUpResponseViewModel = await _coachService.SignUp(signUpRequestViewModel);
-
-        return signUpResponseViewModel;
+        return await _coachService.SignUp(signUpRequestViewModel);
     }
 
     [AllowAnonymous]
     [HttpPost("login")]
     public async Task<SignUpResponseViewModel> CoachLogin([FromBody] LoginRequestViewModel loginRequestViewModel)
     {
-        var signUpResponseViewModel = await _coachService.Login(loginRequestViewModel);
-
-        return signUpResponseViewModel;
+        return await _coachService.Login(loginRequestViewModel);
     }
 }

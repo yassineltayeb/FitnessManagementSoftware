@@ -10,6 +10,7 @@ public static class ServiceConfiguration
     {
         services.AddScoped<ICityService, CityService>();
         services.AddScoped<ICoachService, CoachService>();
+        services.AddScoped<ICoachTypeService, CoachTypeService>();
         services.AddScoped<ICountryService, CountryService>();
         services.AddScoped<IGenderService, GenderService>();
         services.AddScoped<IMemberService, MemberService>();

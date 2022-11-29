@@ -15,7 +15,7 @@ public class CountrySeed
     public void Seed()
     {
         _modelBuilder.Entity<Country>().HasData(
-            new Country() { id = 1, Name = "United Arab Emirates" }
+            new Country() { Id = 1, Name = "United Arab Emirates" }
             );
     }
 }

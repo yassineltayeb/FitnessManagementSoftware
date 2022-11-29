@@ -11,15 +11,13 @@ public class CountriesController : ControllerBase
     private readonly ICountryService _countryService;
 
     public CountriesController(ICountryService countryService)
-	{
+    {
         _countryService = countryService;
     }
 
     [HttpGet]
     public async Task<List<KeyValuePairs>> GetCountries()
     {
-        var countries = await _countryService.GetCountries();
-
-        return countries;
+        return await _countryService.GetCountries();
     }
 }
