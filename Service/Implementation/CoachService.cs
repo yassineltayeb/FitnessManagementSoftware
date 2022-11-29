@@ -34,6 +34,10 @@ public class CoachService : ICoachService
         if (emailExist)
             throw new APIException((int)HttpStatusCode.BadRequest, "Email already exists");
 
+        var phoneExist = await _unitOfWork.CoachRepository.VerifyPhone(signUpRequestViewModel.Phone);
+        if (phoneExist)
+            throw new APIException((int)HttpStatusCode.BadRequest, "Phone already exists");
+
         coachToAdd.Password = BCrypt.Net.BCrypt.HashPassword(coachToAdd.Password);
 
         coachToAdd.CreatedAt = DateTimeOffset.Now.ToUnixTimeMilliseconds();
