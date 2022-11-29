@@ -10,6 +10,7 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<City> Cities { get; set; }
     public DbSet<Coach> Coaches { get; set; }
+    public DbSet<CoachType> CoachTypes { get; set; }
     public DbSet<Country> Countries { get; set; }
     public DbSet<Gender> Genders { get; set; }
     public DbSet<Member> Members { get; set; }
@@ -41,6 +42,19 @@ public class ApplicationDbContext : DbContext
                 .HasForeignKey(sc => sc.MemberId);
         });
 
+        modelBuilder.Entity<CoachesTypes>(entiry =>
+        {
+            entiry
+                .HasOne(cm => cm.Coach)
+                .WithMany(c => c.CoachesTypes)
+                .HasForeignKey(sc => sc.CoachId);
+
+            entiry
+                .HasOne(cm => cm.CoachType)
+                .WithMany(c => c.CoachesTypes)
+                .HasForeignKey(sc => sc.CoachTypeId);
+        });
+
         base.OnModelCreating(modelBuilder);
 
         // Seed
@@ -52,5 +66,8 @@ public class ApplicationDbContext : DbContext
 
         // Cities
         new CitySeed(modelBuilder).Seed();
+
+        // Coach Types
+        new CoachTypeSeed(modelBuilder).Seed();
     }
 }
