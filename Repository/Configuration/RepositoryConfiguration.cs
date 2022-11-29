@@ -11,6 +11,7 @@ public static class RepositoryConfiguration
         services.AddScoped<ICityRepository, CityRepository>();
         services.AddScoped<ICoachRepository, CoachRepository>();
         services.AddScoped<ICoachTypeRepository, CoachTypeRepository>();
+        services.AddScoped<ICoachTypeRepository, CoachTypeRepository>();
         services.AddScoped<ICountryRepository, CountryRepository>();
         services.AddScoped<IGenderRepository, GenderRepository>();
         services.AddScoped<IMemberRepository, MemberRepository>();
