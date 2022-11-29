@@ -9,6 +9,7 @@ public class SignUpRequestViewModel : IValidatableObject
     public int? GenderId { get; set; }
     public string Email { get; set; }
     public string Phone { get; set; }
+    public List<int> CoachTypesIds { get; set; }
     public int CountryId { get; set; }
     public int CityId { get; set; }
     public DateTime? DateOfBirth { get; set; }

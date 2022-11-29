@@ -38,6 +38,11 @@ public class CoachService : ICoachService
 
         coachToAdd.CreatedAt = DateTimeOffset.Now.ToUnixTimeMilliseconds();
 
+        if (signUpRequestViewModel.CoachTypesIds.Any())
+        {
+            coachToAdd.CoachesTypes.AddRange(MapCoachTypes(signUpRequestViewModel.CoachTypesIds));
+        }
+
         var coachAdded = await _unitOfWork.CoachRepository.AddCoach(coachToAdd);
 
         return GenerateToken(coachAdded);
@@ -85,5 +90,20 @@ public class CoachService : ICoachService
         };
 
         return signUpResponseViewModel;
+    }
+
+    private List<CoachesTypes> MapCoachTypes(List<int> coachTypesIds)
+    {
+        var coachesTypes = new List<CoachesTypes>();
+
+        foreach (var coachTypeId in coachTypesIds)
+        {
+            coachesTypes.Add(new CoachesTypes()
+            {
+                CoachTypeId = coachTypeId
+            });
+        }
+
+        return coachesTypes;
     }
 }

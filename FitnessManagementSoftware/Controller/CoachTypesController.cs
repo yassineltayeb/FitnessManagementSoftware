@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Service.Interface;
 using Service.ViewModels.Common;
@@ -16,6 +15,7 @@ public class CoachTypesController : ControllerBase
         _coachTypeService = coachTypeService;
     }
 
+    [HttpGet]
     public async Task<List<KeyValuePairs>> GetCoachTypes()
     {
         return await _coachTypeService.GetCoachTypes();
