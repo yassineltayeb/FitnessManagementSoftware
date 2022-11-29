@@ -2,5 +2,10 @@
 
 public class Coach : BaseUser
 {
-    public ICollection<CoachesTypes> CoachesTypes { get; set; }
+    public List<CoachesTypes> CoachesTypes { get; set; }
+
+    public Coach()
+    {
+        CoachesTypes = new List<CoachesTypes>();
+    }
 }

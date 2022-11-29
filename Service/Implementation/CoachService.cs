@@ -34,9 +34,18 @@ public class CoachService : ICoachService
         if (emailExist)
             throw new APIException((int)HttpStatusCode.BadRequest, "Email already exists");
 
+        var phoneExist = await _unitOfWork.CoachRepository.VerifyPhone(signUpRequestViewModel.Phone);
+        if (phoneExist)
+            throw new APIException((int)HttpStatusCode.BadRequest, "Phone already exists");
+
         coachToAdd.Password = BCrypt.Net.BCrypt.HashPassword(coachToAdd.Password);
 
         coachToAdd.CreatedAt = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+
+        if (signUpRequestViewModel.CoachTypesIds.Any())
+        {
+            coachToAdd.CoachesTypes.AddRange(MapCoachTypes(signUpRequestViewModel.CoachTypesIds));
+        }
 
         var coachAdded = await _unitOfWork.CoachRepository.AddCoach(coachToAdd);
 
@@ -85,5 +94,20 @@ public class CoachService : ICoachService
         };
 
         return signUpResponseViewModel;
+    }
+
+    private List<CoachesTypes> MapCoachTypes(List<int> coachTypesIds)
+    {
+        var coachesTypes = new List<CoachesTypes>();
+
+        foreach (var coachTypeId in coachTypesIds)
+        {
+            coachesTypes.Add(new CoachesTypes()
+            {
+                CoachTypeId = coachTypeId
+            });
+        }
+
+        return coachesTypes;
     }
 }

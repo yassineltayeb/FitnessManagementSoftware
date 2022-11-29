@@ -30,4 +30,9 @@ public class CoachRepository : ICoachRepository
     {
         return await _dbContext.Coaches.AnyAsync(c => c.Email == email);
     }
+
+    public async Task<bool> VerifyPhone(string phone)
+    {
+        return await _dbContext.Coaches.AnyAsync(c => c.Phone == phone);
+    }
 }
