@@ -15,6 +15,7 @@ public static class RepositoryConfiguration
         services.AddScoped<ICountryRepository, CountryRepository>();
         services.AddScoped<IGenderRepository, GenderRepository>();
         services.AddScoped<IMemberRepository, MemberRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
         services.AddTransient<IUnitOfWork, UnitOfWork>();
     }
 }

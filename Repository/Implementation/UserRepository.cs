@@ -4,7 +4,7 @@ using Repository.Interface;
 
 namespace Repository.Implementation;
 
-public class UserRepository
+public class UserRepository : IUserRepository
 {
     private readonly ApplicationDbContext _dbContext;
 
@@ -13,26 +13,18 @@ public class UserRepository
         _dbContext = dbContext;
     }
 
-    public async Task<Coach> AddUser(Coach coach)
+    public async Task<User> GetUserByEmail(string email, int userTypeId)
     {
-        await _dbContext.Coaches.AddAsync(coach);
-        await _dbContext.SaveChangesAsync();
-
-        return coach;
+        return await _dbContext.Users.SingleOrDefaultAsync(c => c.Email == email && c.UserTypeId == userTypeId);
     }
 
-    public async Task<Coach> GetCoachByEmail(string email)
+    public async Task<bool> VerifyEmail(string email, int userTypeId)
     {
-        return await _dbContext.Coaches.SingleOrDefaultAsync(c => c.Email == email);
+        return await _dbContext.Users.AnyAsync(c => c.Email == email && c.UserTypeId == userTypeId);
     }
 
-    public async Task<bool> VerifyEmail(string email)
+    public async Task<bool> VerifyPhone(string phone, int userTypeId)
     {
-        return await _dbContext.Coaches.AnyAsync(c => c.Email == email);
-    }
-
-    public async Task<bool> VerifyPhone(string phone)
-    {
-        return await _dbContext.Coaches.AnyAsync(c => c.Phone == phone);
+        return await _dbContext.Users.AnyAsync(c => c.Phone == phone && c.UserTypeId == userTypeId);
     }
 }
