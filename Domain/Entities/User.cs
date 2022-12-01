@@ -2,7 +2,7 @@
 
 namespace Domain.Entities;
 
-public class BaseUser
+public abstract class User
 {
     public long Id { get; set; }
     public string FirstName { get; set; }
@@ -19,7 +19,7 @@ public class BaseUser
     public Country Country { get; set; }
     [ForeignKey(nameof(City))]
     public int? CityId { get; set; }
-    public City City{ get; set; }
+    public City City { get; set; }
     public long CreatedAt { get; set; }
     public long UpdatedAt { get; set; }
     public ICollection<CoachMember> CoachMember { get; set; }

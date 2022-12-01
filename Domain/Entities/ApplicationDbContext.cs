@@ -55,6 +55,14 @@ public class ApplicationDbContext : DbContext
                 .HasForeignKey(sc => sc.CoachTypeId);
         });
 
+        modelBuilder.Entity<User>(entry =>
+        {
+            entry.ToTable("Users")
+                 .HasDiscriminator<int>("UserTypeId")
+                 .HasValue<Coach>(1)
+                 .HasValue<Member>(2);
+        });
+
         base.OnModelCreating(modelBuilder);
 
         // Seed

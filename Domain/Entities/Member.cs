@@ -1,5 +1,5 @@
 ﻿namespace Domain.Entities;
 
-public class Member : BaseUser
+public class Member : User
 {
 }

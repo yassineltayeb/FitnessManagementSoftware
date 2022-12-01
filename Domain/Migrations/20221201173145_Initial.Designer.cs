@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Domain.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221123102836_AddForeignKeysBetweenCountryAndCityAndUsers")]
-    partial class AddForeignKeysBetweenCountryAndCityAndUsers
+    [Migration("20221201173145_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -91,72 +91,6 @@ namespace Domain.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Domain.Entities.Coach", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<int?>("CityId")
-                        .IsRequired()
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CountryId")
-                        .IsRequired()
-                        .HasColumnType("int");
-
-                    b.Property<long>("CreatedAt")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("DateOfBirth")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("GenderId")
-                        .IsRequired()
-                        .HasColumnType("int");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<long>("UpdatedAt")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CityId");
-
-                    b.HasIndex("CountryId");
-
-                    b.HasIndex("Email")
-                        .IsUnique();
-
-                    b.HasIndex("GenderId");
-
-                    b.HasIndex("Phone")
-                        .IsUnique();
-
-                    b.ToTable("Coaches");
-                });
-
             modelBuilder.Entity("Domain.Entities.CoachMember", b =>
                 {
                     b.Property<long>("Id")
@@ -180,26 +114,123 @@ namespace Domain.Migrations
                     b.ToTable("CoachMember");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Country", b =>
+            modelBuilder.Entity("Domain.Entities.CoachType", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
+
+                    b.ToTable("CoachTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Gym Instructor"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Bootcamp Instructor"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Crossfit Instructor"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Group Exercise Instructor"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Mobile Personal Trainer"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Physique Trainer"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Performance Personal Trainer"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Lifestyle Personal Trainer"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "Sports Trainer"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "Health Coach"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Name = "Cardio Trainer"
+                        });
+                });
+
+            modelBuilder.Entity("Domain.Entities.CoachesTypes", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("CoachId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("CoachTypeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CoachId");
+
+                    b.HasIndex("CoachTypeId");
+
+                    b.ToTable("CoachesTypes");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Country", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
 
                     b.ToTable("Countries");
 
                     b.HasData(
                         new
                         {
-                            id = 1,
+                            Id = 1,
                             Name = "United Arab Emirates"
                         });
                 });
@@ -218,7 +249,7 @@ namespace Domain.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Gender");
+                    b.ToTable("Genders");
 
                     b.HasData(
                         new
@@ -233,7 +264,7 @@ namespace Domain.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Domain.Entities.Member", b =>
+            modelBuilder.Entity("Domain.Entities.User", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -282,7 +313,21 @@ namespace Domain.Migrations
                     b.Property<long>("UpdatedAt")
                         .HasColumnType("bigint");
 
+                    b.Property<int>("UserTypeId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.ToTable("Users", (string)null);
+
+                    b.HasDiscriminator<int>("UserTypeId");
+
+                    b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("Domain.Entities.Coach", b =>
+                {
+                    b.HasBaseType("Domain.Entities.User");
 
                     b.HasIndex("CityId");
 
@@ -296,7 +341,26 @@ namespace Domain.Migrations
                     b.HasIndex("Phone")
                         .IsUnique();
 
-                    b.ToTable("Members");
+                    b.HasDiscriminator().HasValue(1);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Member", b =>
+                {
+                    b.HasBaseType("Domain.Entities.User");
+
+                    b.HasIndex("CityId");
+
+                    b.HasIndex("CountryId");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("GenderId");
+
+                    b.HasIndex("Phone")
+                        .IsUnique();
+
+                    b.HasDiscriminator().HasValue(2);
                 });
 
             modelBuilder.Entity("Domain.Entities.City", b =>
@@ -308,6 +372,44 @@ namespace Domain.Migrations
                         .IsRequired();
 
                     b.Navigation("Country");
+                });
+
+            modelBuilder.Entity("Domain.Entities.CoachMember", b =>
+                {
+                    b.HasOne("Domain.Entities.Coach", "Coach")
+                        .WithMany("CoachMember")
+                        .HasForeignKey("CoachId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Member", "Member")
+                        .WithMany("CoachMember")
+                        .HasForeignKey("MemberId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Coach");
+
+                    b.Navigation("Member");
+                });
+
+            modelBuilder.Entity("Domain.Entities.CoachesTypes", b =>
+                {
+                    b.HasOne("Domain.Entities.Coach", "Coach")
+                        .WithMany("CoachesTypes")
+                        .HasForeignKey("CoachId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.CoachType", "CoachType")
+                        .WithMany("CoachesTypes")
+                        .HasForeignKey("CoachTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Coach");
+
+                    b.Navigation("CoachType");
                 });
 
             modelBuilder.Entity("Domain.Entities.Coach", b =>
@@ -335,25 +437,6 @@ namespace Domain.Migrations
                     b.Navigation("Country");
 
                     b.Navigation("Gender");
-                });
-
-            modelBuilder.Entity("Domain.Entities.CoachMember", b =>
-                {
-                    b.HasOne("Domain.Entities.Coach", "Coach")
-                        .WithMany("CoachMember")
-                        .HasForeignKey("CoachId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.Member", "Member")
-                        .WithMany("CoachMember")
-                        .HasForeignKey("MemberId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Coach");
-
-                    b.Navigation("Member");
                 });
 
             modelBuilder.Entity("Domain.Entities.Member", b =>
@@ -383,9 +466,16 @@ namespace Domain.Migrations
                     b.Navigation("Gender");
                 });
 
+            modelBuilder.Entity("Domain.Entities.CoachType", b =>
+                {
+                    b.Navigation("CoachesTypes");
+                });
+
             modelBuilder.Entity("Domain.Entities.Coach", b =>
                 {
                     b.Navigation("CoachMember");
+
+                    b.Navigation("CoachesTypes");
                 });
 
             modelBuilder.Entity("Domain.Entities.Member", b =>

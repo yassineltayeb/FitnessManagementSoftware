@@ -1,6 +1,6 @@
 ﻿namespace Domain.Entities;
 
-public class Coach : BaseUser
+public class Coach : User
 {
     public List<CoachesTypes> CoachesTypes { get; set; }
 
