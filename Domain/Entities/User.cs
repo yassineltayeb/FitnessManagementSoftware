@@ -23,4 +23,5 @@ public abstract class User
     public long CreatedAt { get; set; }
     public long UpdatedAt { get; set; }
     public ICollection<CoachMember> CoachMember { get; set; }
+    public int UserTypeId { get; set; }
 }

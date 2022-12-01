@@ -51,7 +51,7 @@ public class ApplicationDbContext : DbContext
                  .HasValue<Coach>(1)
                  .HasValue<Member>(2);
 
-            entry.HasIndex(p => new { p.Email, p.Phone}).IsUnique();
+            entry.HasIndex(p => new { p.Email, p.UserTypeId}).IsUnique();
         });
 
         base.OnModelCreating(modelBuilder);
