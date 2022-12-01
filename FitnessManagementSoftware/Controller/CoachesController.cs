@@ -23,11 +23,4 @@ public class CoachesController : ControllerBase
     {
         return await _coachService.SignUp(signUpRequestViewModel);
     }
-
-    [AllowAnonymous]
-    [HttpPost("login")]
-    public async Task<SignUpResponseViewModel> CoachLogin([FromBody] LoginRequestViewModel loginRequestViewModel)
-    {
-        return await _coachService.Login(loginRequestViewModel);
-    }
 }

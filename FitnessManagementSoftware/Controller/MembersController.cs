@@ -23,11 +23,4 @@ public class MembersController : ControllerBase
     {
         return await _memberService.SignUp(signUpRequestViewModel);
     }
-
-    [AllowAnonymous]
-    [HttpPost("login")]
-    public async Task<SignUpResponseViewModel> MemberLogin([FromBody] LoginRequestViewModel loginRequestViewModel)
-    {
-        return await _memberService.Login(loginRequestViewModel);
-    }
 }
