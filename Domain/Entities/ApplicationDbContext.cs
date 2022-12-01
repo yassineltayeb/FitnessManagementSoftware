@@ -18,18 +18,6 @@ public class ApplicationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        //modelBuilder.Entity<Coach>(entity =>
-        //{
-        //    entity.HasIndex(c => c.Email).IsUnique();
-        //    entity.HasIndex(c => c.Phone).IsUnique();
-        //});
-
-        //modelBuilder.Entity<Member>(entity =>
-        //{
-        //    entity.HasIndex(c => c.Email).IsUnique();
-        //    entity.HasIndex(c => c.Phone).IsUnique();
-        //});
-
         modelBuilder.Entity<CoachMember>(entiry =>
         {
             entiry
