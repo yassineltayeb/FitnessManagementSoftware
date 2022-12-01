@@ -41,7 +41,7 @@ namespace Domain.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("Cities");
+                    b.ToTable("Cities", (string)null);
 
                     b.HasData(
                         new
@@ -108,7 +108,7 @@ namespace Domain.Migrations
 
                     b.HasIndex("MemberId");
 
-                    b.ToTable("CoachMember");
+                    b.ToTable("CoachMember", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.CoachType", b =>
@@ -125,7 +125,7 @@ namespace Domain.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CoachTypes");
+                    b.ToTable("CoachTypes", (string)null);
 
                     b.HasData(
                         new
@@ -205,7 +205,7 @@ namespace Domain.Migrations
 
                     b.HasIndex("CoachTypeId");
 
-                    b.ToTable("CoachesTypes");
+                    b.ToTable("CoachesTypes", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Country", b =>
@@ -222,7 +222,7 @@ namespace Domain.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Countries");
+                    b.ToTable("Countries", (string)null);
 
                     b.HasData(
                         new
@@ -246,7 +246,7 @@ namespace Domain.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Genders");
+                    b.ToTable("Genders", (string)null);
 
                     b.HasData(
                         new
