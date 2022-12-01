@@ -8,6 +8,7 @@ public interface IUnitOfWork
     public ICountryRepository CountryRepository { get; }
     public ICityRepository CityRepository { get; }
     public IMemberRepository MemberRepository { get; }
+    public IUserRepository UserRepository { get; }
     void BeginTransaction();
     Task<int> SaveAllAsync();
     Task Commit();

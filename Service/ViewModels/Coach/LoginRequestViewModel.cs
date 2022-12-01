@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
+using Repository.Enum;
 using System.ComponentModel.DataAnnotations;
 
 namespace Service.ViewModels.Coach;
@@ -8,6 +9,7 @@ public class LoginRequestViewModel : IValidatableObject
 {
     public string Email { get; set; }
     public string Password { get; set; }
+    public UserTypeEnum? UserType { get; set; }
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
@@ -33,6 +35,10 @@ public class LoginRequestViewModel : IValidatableObject
             RuleFor(c => c.Password)
                .NotEmpty()
                .WithMessage("Password is required");
+
+            RuleFor(c => c.UserType)
+               .NotEmpty()
+               .WithMessage("UserType Is required");
         }
     }
 }

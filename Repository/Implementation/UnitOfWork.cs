@@ -20,6 +20,7 @@ public class UnitOfWork : IUnitOfWork
     public ICountryRepository CountryRepository => new CountryRepository(_dbContext);
     public ICityRepository CityRepository => new CityRepository(_dbContext);
     public IMemberRepository MemberRepository => new MemberRepository(_dbContext);
+    public IUserRepository UserRepository => new UserRepository(_dbContext);
 
     public async void BeginTransaction()
     {
