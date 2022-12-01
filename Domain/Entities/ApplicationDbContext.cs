@@ -17,17 +17,17 @@ public class ApplicationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Coach>(entity =>
-        {
-            entity.HasIndex(c => c.Email).IsUnique();
-            entity.HasIndex(c => c.Phone).IsUnique();
-        });
+        //modelBuilder.Entity<Coach>(entity =>
+        //{
+        //    entity.HasIndex(c => c.Email).IsUnique();
+        //    entity.HasIndex(c => c.Phone).IsUnique();
+        //});
 
-        modelBuilder.Entity<Member>(entity =>
-        {
-            entity.HasIndex(c => c.Email).IsUnique();
-            entity.HasIndex(c => c.Phone).IsUnique();
-        });
+        //modelBuilder.Entity<Member>(entity =>
+        //{
+        //    entity.HasIndex(c => c.Email).IsUnique();
+        //    entity.HasIndex(c => c.Phone).IsUnique();
+        //});
 
         modelBuilder.Entity<CoachMember>(entiry =>
         {
@@ -61,6 +61,8 @@ public class ApplicationDbContext : DbContext
                  .HasDiscriminator<int>("UserTypeId")
                  .HasValue<Coach>(1)
                  .HasValue<Member>(2);
+
+            entry.HasIndex(p => new { p.Email, p.Phone}).IsUnique();
         });
 
         base.OnModelCreating(modelBuilder);
