@@ -43,10 +43,10 @@ public class UserService : IUserService
     {
         var authClaims = new List<Claim>
         {
-            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new Claim(ClaimTypes.Name, user.FirstName + " " + user.LastName),
-            new Claim(ClaimTypes.Email, user.Email),
-            new Claim(ClaimTypes.MobilePhone, user.Phone)
+            new Claim("userId", user.Id.ToString()),
+            new Claim("fullName", user.FirstName + " " + user.LastName),
+            new Claim("email", user.Email),
+            new Claim("phone", user.Phone)
         };
 
         var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
