@@ -46,7 +46,8 @@ public class UserService : IUserService
             new Claim("userId", user.Id.ToString()),
             new Claim("fullName", user.FirstName + " " + user.LastName),
             new Claim("email", user.Email),
-            new Claim("phone", user.Phone)
+            new Claim("phone", user.Phone),
+            new Claim("userTypeId", user.UserTypeId.ToString())
         };
 
         var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
