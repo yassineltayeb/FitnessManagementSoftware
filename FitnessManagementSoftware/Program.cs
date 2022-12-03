@@ -73,6 +73,7 @@ app.UseCors(x => x
 
 app.UseAuthorization();
 
-app.MapControllers();
+app.MapControllers()
+        .RequireAuthorization();
 
 app.Run();

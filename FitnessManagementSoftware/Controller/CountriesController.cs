@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Service.Interface;
 using Service.ViewModels.Common;
 
@@ -15,6 +16,7 @@ public class CountriesController : ControllerBase
         _countryService = countryService;
     }
 
+    [AllowAnonymous]
     [HttpGet]
     public async Task<List<KeyValuePairs>> GetCountries()
     {

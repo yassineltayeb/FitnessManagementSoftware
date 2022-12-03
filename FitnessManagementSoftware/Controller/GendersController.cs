@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Service.Interface;
 using Service.ViewModels.Common;
 
@@ -15,6 +16,7 @@ public class GendersController : ControllerBase
         _genderService = genderService;
     }
 
+    [AllowAnonymous]
     [HttpGet]
     public async Task<List<KeyValuePairs>> GetGenders()
     {

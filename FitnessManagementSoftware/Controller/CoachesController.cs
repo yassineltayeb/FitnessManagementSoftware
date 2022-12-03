@@ -6,7 +6,6 @@ using Service.ViewModels.Coach;
 namespace FitnessManagementSoftware.Controller;
 
 [Route("api/coaches")]
-[Authorize]
 [ApiController]
 public class CoachesController : ControllerBase
 {
