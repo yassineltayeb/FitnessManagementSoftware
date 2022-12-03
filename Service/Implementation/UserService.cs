@@ -28,7 +28,7 @@ public class UserService : IUserService
 
     public async Task<SignUpResponseViewModel> Login(LoginRequestViewModel loginRequestViewModel)
     {
-        var user = await _unitOfWork.UserRepository.GetUserByEmail(loginRequestViewModel.Email, (int)loginRequestViewModel.UserType);
+        var user = await _unitOfWork.Users.GetUserByEmail(loginRequestViewModel.Email, (int)loginRequestViewModel.UserType);
 
         if (user is null)
             throw new APIException((int)HttpStatusCode.BadRequest, "Invalid Email/Password");

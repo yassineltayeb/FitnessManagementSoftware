@@ -17,7 +17,7 @@ public class CoachTypeService : ICoachTypeService
 
     public async Task<List<KeyValuePairs>> GetCoachTypes()
     {
-        var coachTypes = await _unitOfWork.CoachTypeRepository.GetCoachTypes();
+        var coachTypes = await _unitOfWork.CoachTypes.GetCoachTypes();
 
         return _mapper.Map<List<KeyValuePairs>>(coachTypes);
     }

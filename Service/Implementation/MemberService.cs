@@ -30,7 +30,7 @@ public class MemberService : IMemberService
     {
         var memberToAdd = _mapper.Map<Member>(signUpRequestViewModel);
 
-        var emailExist = await _unitOfWork.MemberRepository.VerifyEmail(signUpRequestViewModel.Email);
+        var emailExist = await _unitOfWork.Members.VerifyEmail(signUpRequestViewModel.Email);
         if (emailExist)
             throw new APIException((int)HttpStatusCode.BadRequest, "Email already exists");
 
@@ -38,14 +38,14 @@ public class MemberService : IMemberService
 
         memberToAdd.CreatedAt = DateTimeOffset.Now.ToUnixTimeMilliseconds();
 
-        var memberAdded = await _unitOfWork.MemberRepository.AddMember(memberToAdd);
+        var memberAdded = await _unitOfWork.Members.AddMember(memberToAdd);
 
         return GenerateToken(memberAdded);
     }
 
     public async Task<SignUpResponseViewModel> Login(LoginRequestViewModel loginRequestViewModel)
     {
-        var member = await _unitOfWork.MemberRepository.GetMemberhByEmail(loginRequestViewModel.Email);
+        var member = await _unitOfWork.Members.GetMemberhByEmail(loginRequestViewModel.Email);
 
         if (member is null)
             throw new APIException((int)HttpStatusCode.BadRequest, "Invalid Email/Password");

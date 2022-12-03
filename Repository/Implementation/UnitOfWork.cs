@@ -14,13 +14,13 @@ public class UnitOfWork : IUnitOfWork
         _dbContext = dbContext;
     }
 
-    public ICoachRepository CoachRepository => new CoachRepository(_dbContext);
-    public ICoachTypeRepository CoachTypeRepository => new CoachTypeRepository(_dbContext);
-    public IGenderRepository GenderRepository => new GenderRepository(_dbContext);
-    public ICountryRepository CountryRepository => new CountryRepository(_dbContext);
-    public ICityRepository CityRepository => new CityRepository(_dbContext);
-    public IMemberRepository MemberRepository => new MemberRepository(_dbContext);
-    public IUserRepository UserRepository => new UserRepository(_dbContext);
+    public ICoachRepository Coaches => new CoachRepository(_dbContext);
+    public ICoachTypeRepository CoachTypes => new CoachTypeRepository(_dbContext);
+    public IGenderRepository Genders => new GenderRepository(_dbContext);
+    public ICountryRepository Counties => new CountryRepository(_dbContext);
+    public ICityRepository Cities => new CityRepository(_dbContext);
+    public IMemberRepository Members => new MemberRepository(_dbContext);
+    public IUserRepository Users => new UserRepository(_dbContext);
 
     public async void BeginTransaction()
     {

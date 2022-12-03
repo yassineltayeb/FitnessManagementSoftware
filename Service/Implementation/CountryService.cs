@@ -18,7 +18,7 @@ public class CountryService : ICountryService
 
     public async Task<List<KeyValuePairs>> GetCountries()
     {
-        var countries = await _unitOfWork.CountryRepository.GetCountries();
+        var countries = await _unitOfWork.Counties.GetCountries();
 
         return _mapper.Map<List<KeyValuePairs>>(countries);
     }

@@ -2,13 +2,13 @@
 
 public interface IUnitOfWork
 {
-    public ICoachRepository CoachRepository { get; }
-    public ICoachTypeRepository CoachTypeRepository { get; }
-    public IGenderRepository GenderRepository { get; }
-    public ICountryRepository CountryRepository { get; }
-    public ICityRepository CityRepository { get; }
-    public IMemberRepository MemberRepository { get; }
-    public IUserRepository UserRepository { get; }
+    public ICoachRepository Coaches { get; }
+    public ICoachTypeRepository CoachTypes { get; }
+    public IGenderRepository Genders { get; }
+    public ICountryRepository Counties { get; }
+    public ICityRepository Cities { get; }
+    public IMemberRepository Members { get; }
+    public IUserRepository Users { get; }
     void BeginTransaction();
     Task<int> SaveAllAsync();
     Task Commit();

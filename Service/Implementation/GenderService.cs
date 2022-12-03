@@ -18,7 +18,7 @@ public class GenderService : IGenderService
 
     public async Task<List<KeyValuePairs>> GetGenders()
     {
-        var genders = await _unitOfWork.GenderRepository.GetGenders();
+        var genders = await _unitOfWork.Genders.GetGenders();
 
         return _mapper.Map<List<KeyValuePairs>>(genders);
     }

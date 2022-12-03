@@ -30,11 +30,11 @@ public class CoachService : ICoachService
     {
         var coachToAdd = _mapper.Map<Coach>(signUpRequestViewModel);
 
-        var emailExist = await _unitOfWork.CoachRepository.VerifyEmail(signUpRequestViewModel.Email);
+        var emailExist = await _unitOfWork.Coaches.VerifyEmail(signUpRequestViewModel.Email);
         if (emailExist)
             throw new APIException((int)HttpStatusCode.BadRequest, "Email already exists");
 
-        var phoneExist = await _unitOfWork.CoachRepository.VerifyPhone(signUpRequestViewModel.Phone);
+        var phoneExist = await _unitOfWork.Coaches.VerifyPhone(signUpRequestViewModel.Phone);
         if (phoneExist)
             throw new APIException((int)HttpStatusCode.BadRequest, "Phone already exists");
 
@@ -47,14 +47,14 @@ public class CoachService : ICoachService
             coachToAdd.CoachesTypes.AddRange(MapCoachTypes(signUpRequestViewModel.CoachTypesIds));
         }
 
-        var coachAdded = await _unitOfWork.CoachRepository.AddCoach(coachToAdd);
+        var coachAdded = await _unitOfWork.Coaches.AddCoach(coachToAdd);
 
         return GenerateToken(coachAdded);
     }
 
     public async Task<UpdateCoachResponseViewModel> Update(long coachId, UpdateCoachRequestViewModel updateCoachRequestViewModel)
     {
-        var coachToUpdate = await _unitOfWork.CoachRepository.GetCoachById(coachId);
+        var coachToUpdate = await _unitOfWork.Coaches.GetCoachById(coachId);
 
         if (coachToUpdate is null)
             throw new APIException((int)HttpStatusCode.NotFound, "Invalid UserId");
@@ -70,7 +70,7 @@ public class CoachService : ICoachService
             coachToUpdate.CoachesTypes.AddRange(MapCoachTypes(updateCoachRequestViewModel.CoachTypesIds));
         }
 
-        var updatedCoach = await _unitOfWork.CoachRepository.UpdateCoach(coachToUpdate);
+        var updatedCoach = await _unitOfWork.Coaches.UpdateCoach(coachToUpdate);
 
         return _mapper.Map<UpdateCoachResponseViewModel>(updatedCoach);
     }

@@ -18,7 +18,7 @@ public class CityService : ICityService
 
     public async Task<List<KeyValuePairs>> GetCitiesByCountryId(int countryId)
     {
-        var cities = await _unitOfWork.CityRepository.GetCitiesByCountryId(countryId);
+        var cities = await _unitOfWork.Cities.GetCitiesByCountryId(countryId);
 
         return _mapper.Map<List<KeyValuePairs>>(cities);
     }
