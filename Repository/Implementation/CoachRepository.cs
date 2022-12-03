@@ -21,6 +21,21 @@ public class CoachRepository : ICoachRepository
         return coach;
     }
 
+    public async Task<Coach> GetCoachById(long coachId)
+    {
+        return await _dbContext.Coaches
+                                    .Include(c => c.CoachesTypes)
+                                    .SingleOrDefaultAsync(c => c.Id == coachId);
+    }
+
+    public async Task<Coach> UpdateCoach(Coach coach)
+    {
+        _dbContext.Coaches.Update(coach);
+        await _dbContext.SaveChangesAsync();
+
+        return coach;
+    }
+
     public async Task<Coach> GetCoachByEmail(string email)
     {
         return await _dbContext.Coaches.SingleOrDefaultAsync(c => c.Email == email);

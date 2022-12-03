@@ -22,4 +22,10 @@ public class CoachesController : ControllerBase
     {
         return await _coachService.SignUp(signUpRequestViewModel);
     }
+
+    [HttpPut("{coachId}")]
+    public async Task<UpdateCoachResponseViewModel> UpdateCoach(long coachId, [FromBody] UpdateCoachRequestViewModel updateCoachRequestViewModel)
+    {
+        return await _coachService.Update(coachId, updateCoachRequestViewModel);
+    }
 }

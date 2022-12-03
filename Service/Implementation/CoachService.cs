@@ -52,17 +52,27 @@ public class CoachService : ICoachService
         return GenerateToken(coachAdded);
     }
 
-    public async Task<SignUpResponseViewModel> Login(LoginRequestViewModel loginRequestViewModel)
+    public async Task<UpdateCoachResponseViewModel> Update(long coachId, UpdateCoachRequestViewModel updateCoachRequestViewModel)
     {
-        var coach = await _unitOfWork.CoachRepository.GetCoachByEmail(loginRequestViewModel.Email);
+        var coachToUpdate = await _unitOfWork.CoachRepository.GetCoachById(coachId);
 
-        if (coach is null)
-            throw new APIException((int)HttpStatusCode.BadRequest, "Invalid Email/Password");
+        if (coachToUpdate is null)
+            throw new APIException((int)HttpStatusCode.NotFound, "Invalid UserId");
 
-        if (!BCrypt.Net.BCrypt.Verify(loginRequestViewModel.Password, coach.Password))
-            throw new APIException((int)HttpStatusCode.BadRequest, "Invalid Email/Password");
+        coachToUpdate = _mapper.Map<UpdateCoachRequestViewModel, Coach>(updateCoachRequestViewModel, coachToUpdate);
 
-        return GenerateToken(coach);
+        coachToUpdate.UpdatedAt = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+
+        coachToUpdate.CoachesTypes = new List<CoachesTypes>();
+
+        if (updateCoachRequestViewModel.CoachTypesIds.Any())
+        {
+            coachToUpdate.CoachesTypes.AddRange(MapCoachTypes(updateCoachRequestViewModel.CoachTypesIds));
+        }
+
+        var updatedCoach = await _unitOfWork.CoachRepository.UpdateCoach(coachToUpdate);
+
+        return _mapper.Map<UpdateCoachResponseViewModel>(updatedCoach);
     }
 
     private SignUpResponseViewModel GenerateToken(Coach coach)

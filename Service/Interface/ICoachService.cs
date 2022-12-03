@@ -4,5 +4,5 @@ namespace Service.Interface;
 public interface ICoachService
 {
     Task<SignUpResponseViewModel> SignUp(SignUpRequestViewModel signUpRequestViewModel);
-    Task<SignUpResponseViewModel> Login(LoginRequestViewModel loginRequestViewModel);
+    Task<UpdateCoachResponseViewModel> Update(long coachId, UpdateCoachRequestViewModel updateCoachRequestViewModel);
 }
