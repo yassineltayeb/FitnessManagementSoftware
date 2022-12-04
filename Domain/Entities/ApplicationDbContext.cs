@@ -18,27 +18,27 @@ public class ApplicationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<CoachMember>(entiry =>
+        modelBuilder.Entity<CoachMember>(entity =>
         {
-            entiry
+            entity
                 .HasOne(cm => cm.Coach)
                 .WithMany(c => c.CoachMember)
                 .HasForeignKey(sc => sc.CoachId);
 
-            entiry
+            entity
                 .HasOne(cm => cm.Member)
                 .WithMany(c => c.CoachMember)
                 .HasForeignKey(sc => sc.MemberId);
         });
 
-        modelBuilder.Entity<CoachesTypes>(entiry =>
+        modelBuilder.Entity<CoachesTypes>(entity =>
         {
-            entiry
+            entity
                 .HasOne(cm => cm.Coach)
                 .WithMany(c => c.CoachesTypes)
                 .HasForeignKey(sc => sc.CoachId);
 
-            entiry
+            entity
                 .HasOne(cm => cm.CoachType)
                 .WithMany(c => c.CoachesTypes)
                 .HasForeignKey(sc => sc.CoachTypeId);
