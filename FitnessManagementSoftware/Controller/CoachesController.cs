@@ -23,6 +23,12 @@ public class CoachesController : ControllerBase
         return await _coachService.SignUp(signUpRequestViewModel);
     }
 
+    [HttpGet("{coachId}")]
+    public async Task<UpdateCoachResponseViewModel> GetCoachById(long coachId)
+    {
+        return await _coachService.GetById(coachId);
+    }
+
     [HttpPut("{coachId}")]
     public async Task<UpdateCoachResponseViewModel> UpdateCoach(long coachId, [FromBody] UpdateCoachRequestViewModel updateCoachRequestViewModel)
     {

@@ -52,6 +52,16 @@ public class CoachService : ICoachService
         return GenerateToken(coachAdded);
     }
 
+    public async Task<UpdateCoachResponseViewModel> GetById(long coachId)
+    {
+        var coach = await _unitOfWork.Coaches.GetCoachById(coachId);
+
+        if (coach is null)
+            throw new APIException((int)HttpStatusCode.NotFound, "Invalid UserId");
+
+        return _mapper.Map<UpdateCoachResponseViewModel>(coach);
+    }
+
     public async Task<UpdateCoachResponseViewModel> Update(long coachId, UpdateCoachRequestViewModel updateCoachRequestViewModel)
     {
         var coachToUpdate = await _unitOfWork.Coaches.GetCoachById(coachId);
