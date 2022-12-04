@@ -37,7 +37,6 @@ public class CoachProfile : Profile
             .ForMember(desc => desc.FirstName, o => o.MapFrom(src => src.FirstName))
             .ForMember(desc => desc.LastName, o => o.MapFrom(src => src.LastName))
             .ForMember(desc => desc.GenderId, o => o.MapFrom(src => src.GenderId))
-            .ForMember(desc => desc.Email, o => o.MapFrom(src => src.Email))
             .ForMember(desc => desc.Phone, o => o.MapFrom(src => src.Phone))
             .ForMember(desc => desc.CoachesTypes, o => o.MapFrom(src => src.CoachTypesIds))
             .ForMember(desc => desc.CountryId, o => o.MapFrom(src => src.CountryId))
