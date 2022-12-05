@@ -15,6 +15,7 @@ public class UnitOfWork : IUnitOfWork
     }
 
     public ICoachRepository Coaches => new CoachRepository(_dbContext);
+    public ICoachClassRepository CoachClasses => new CoachClassRepository(_dbContext);
     public ICoachTypeRepository CoachTypes => new CoachTypeRepository(_dbContext);
     public IGenderRepository Genders => new GenderRepository(_dbContext);
     public ICountryRepository Counties => new CountryRepository(_dbContext);

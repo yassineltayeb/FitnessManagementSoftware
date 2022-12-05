@@ -3,6 +3,7 @@
 public interface IUnitOfWork
 {
     public ICoachRepository Coaches { get; }
+    public ICoachClassRepository CoachClasses { get; }
     public ICoachTypeRepository CoachTypes { get; }
     public IGenderRepository Genders { get; }
     public ICountryRepository Counties { get; }
