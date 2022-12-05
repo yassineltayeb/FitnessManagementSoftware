@@ -10,6 +10,7 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<City> Cities { get; set; }
     public DbSet<Coach> Coaches { get; set; }
+    public DbSet<CoachClass> CoachClasses { get; set; }
     public DbSet<CoachType> CoachTypes { get; set; }
     public DbSet<Country> Countries { get; set; }
     public DbSet<Gender> Genders { get; set; }
@@ -51,7 +52,7 @@ public class ApplicationDbContext : DbContext
                  .HasValue<Coach>(1)
                  .HasValue<Member>(2);
 
-            entry.HasIndex(p => new { p.Email, p.UserTypeId}).IsUnique();
+            entry.HasIndex(p => new { p.Email, p.UserTypeId }).IsUnique();
         });
 
         base.OnModelCreating(modelBuilder);
