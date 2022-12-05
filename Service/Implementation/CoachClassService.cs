@@ -24,9 +24,11 @@ public class CoachClassService : ICoachClassService
         var coach = await _unitOfWork.Coaches.GetCoachById(addCoachClassRequest.CoachId);
 
         if (coach is null)
-            throw new APIException((int)HttpStatusCode.NotFound, "Invalid UserId");
+            throw new APIException((int)HttpStatusCode.NotFound, "Invalid CoachId");
 
         var coachClassToAdd = _mapper.Map<CoachClass>(addCoachClassRequest);
+
+        coachClassToAdd.CreatedAt = DateTimeOffset.Now.ToUnixTimeMilliseconds();
 
         var coachClass = await _unitOfWork.CoachClasses.AddCoachClass(coachClassToAdd);
 

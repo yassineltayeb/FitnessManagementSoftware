@@ -30,7 +30,7 @@ public class AddCoachClassRequestViewModel : IValidatableObject
         {
             RuleFor(c => c.CoachId)
                 .NotEmpty()
-                .WithMessage("CoachId id address");
+                .WithMessage("CoachId id required");
 
             RuleFor(c => c.Title)
                .NotEmpty()
