@@ -28,21 +28,20 @@ public static class PaginationExtensions
     }
     
     public static PagedResult<T> GetPagedViewModel<T>(this IEnumerable<T> query, 
-        int pageNumber, int pageSize) where T : class
+        int itemsCount, int pageNumber, int pageSize) where T : class
     {
 
         pageNumber = pageNumber != 0 ? pageNumber : 1;
-        pageSize = pageSize != 0 ? pageSize : 1;
+        pageSize = pageSize != 0 ? pageSize : 10;
         
         var result = new PagedResult<T>();
         result.CurrentPage = pageNumber;
         result.ItemsPerPage = pageSize;
-        result.TotalItems = query.Count();
+        result.TotalItems = itemsCount;
 
         result.PageCount = (int)Math.Ceiling((double)result.TotalItems / pageSize);
  
-        var skip = (pageNumber - 1) * pageSize;     
-        result.Data = query.Skip(skip).Take(pageSize).ToList();
+        result.Data = query.ToList();
  
         return result;
     }

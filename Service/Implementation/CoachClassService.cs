@@ -43,7 +43,7 @@ public class CoachClassService : ICoachClassService
                                                                                 getCoachClassRequest.PageNumber, getCoachClassRequest.PageSize);
         var coachClasses = _mapper.Map<List<GetCoachClassResponseViewModel>>(coachCLassesPaged.Data);
 
-        return coachClasses.GetPagedViewModel<GetCoachClassResponseViewModel>(getCoachClassRequest.PageNumber,
-                                                                      getCoachClassRequest.PageSize);
+        return coachClasses.GetPagedViewModel<GetCoachClassResponseViewModel>(coachCLassesPaged.TotalItems,coachCLassesPaged.CurrentPage,
+                                                                      coachCLassesPaged.ItemsPerPage);
     }
 }

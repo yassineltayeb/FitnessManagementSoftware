@@ -19,14 +19,16 @@ public class CoachClassesController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<AddCoachClassResponseViewModel> AddCoachClass([FromBody] AddCoachClassRequestViewModel coachClassRequestViewModel)
+    public async Task<AddCoachClassResponseViewModel> AddCoachClass(
+        [FromBody] AddCoachClassRequestViewModel coachClassRequestViewModel)
     {
         return await _coachClassService.AddCoachClass(coachClassRequestViewModel);
     }
-    
+
     [HttpGet]
-    public async Task<PagedResult<GetCoachClassResponseViewModel>> GetCoachClasses([FromQuery] GetCoachClassRequestViewModel getCoachClassRequestViewModel)
-        {
+    public async Task<PagedResult<GetCoachClassResponseViewModel>> GetCoachClasses(
+        [FromQuery] GetCoachClassRequestViewModel getCoachClassRequestViewModel)
+    {
         return await _coachClassService.GetCoachClasses(getCoachClassRequestViewModel);
     }
 }
