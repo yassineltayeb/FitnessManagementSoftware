@@ -16,10 +16,10 @@ public static class PaginationExtensions
         
         var result = new PagedResult<T>();
         result.CurrentPage = pageNumber;
-        result.PageSize = pageSize;
-        result.RowCount = await query.CountAsync();
+        result.ItemsPerPage = pageSize;
+        result.TotalItems = await query.CountAsync();
 
-        result.PageCount = (int)Math.Ceiling((double)result.RowCount / pageSize);
+        result.PageCount = (int)Math.Ceiling((double)result.TotalItems / pageSize);
  
         var skip = (pageNumber - 1) * pageSize;     
         result.Data = await query.Skip(skip).Take(pageSize).ToListAsync();
@@ -36,10 +36,10 @@ public static class PaginationExtensions
         
         var result = new PagedResult<T>();
         result.CurrentPage = pageNumber;
-        result.PageSize = pageSize;
-        result.RowCount = query.Count();
+        result.ItemsPerPage = pageSize;
+        result.TotalItems = query.Count();
 
-        result.PageCount = (int)Math.Ceiling((double)result.RowCount / pageSize);
+        result.PageCount = (int)Math.Ceiling((double)result.TotalItems / pageSize);
  
         var skip = (pageNumber - 1) * pageSize;     
         result.Data = query.Skip(skip).Take(pageSize).ToList();

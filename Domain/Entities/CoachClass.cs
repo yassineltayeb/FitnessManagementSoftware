@@ -9,7 +9,7 @@ public class CoachClass
     public string Location { get; set; }
     public DateTime ClassFrom { get; set; }
     public DateTime ClassTo { get; set; }
-    public int AvailbleSpaces { get; set; }
+    public int AvailableSpaces { get; set; }
     public long CreatedAt { get; set; }
     public long UpdatedAt { get; set; }
 }

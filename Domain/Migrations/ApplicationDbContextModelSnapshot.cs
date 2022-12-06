@@ -96,7 +96,7 @@ namespace Domain.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<int>("AvailbleSpaces")
+                    b.Property<int>("AvailableSpaces")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("ClassFrom")

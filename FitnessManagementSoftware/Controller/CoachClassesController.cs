@@ -26,7 +26,7 @@ public class CoachClassesController : ControllerBase
     
     [HttpGet]
     public async Task<PagedResult<GetCoachClassResponseViewModel>> GetCoachClasses([FromQuery] GetCoachClassRequestViewModel getCoachClassRequestViewModel)
-    {
+        {
         return await _coachClassService.GetCoachClasses(getCoachClassRequestViewModel);
     }
 }

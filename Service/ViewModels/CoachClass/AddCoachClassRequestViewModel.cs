@@ -11,7 +11,7 @@ public class AddCoachClassRequestViewModel : IValidatableObject
     public string Location { get; set; }
     public DateTime ClassDate { get; set; }
     public int Duration { get; set; }
-    public int AvailbleSpaces { get; set; }
+    public int AvailableSpaces { get; set; }
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
@@ -52,7 +52,7 @@ public class AddCoachClassRequestViewModel : IValidatableObject
                .NotEmpty()
                .WithMessage("Duration Is required");
 
-            RuleFor(c => c.AvailbleSpaces)
+            RuleFor(c => c.AvailableSpaces)
                .NotEmpty()
                .WithMessage("Availble Spaces Is required");
         }

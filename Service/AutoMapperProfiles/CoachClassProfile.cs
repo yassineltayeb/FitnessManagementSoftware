@@ -16,7 +16,7 @@ public class CoachClassProfile : Profile
             .ForMember(dest => dest.Location, o => o.MapFrom(src => src.Location))
             .ForMember(dest => dest.ClassFrom, o => o.MapFrom(src => src.ClassDate))
             .ForMember(dest => dest.ClassTo, o => o.MapFrom(src => src.ClassDate.AddMinutes(src.Duration)))
-            .ForMember(dest => dest.AvailbleSpaces, o => o.MapFrom(src => src.AvailbleSpaces))
+            .ForMember(dest => dest.AvailableSpaces, o => o.MapFrom(src => src.AvailableSpaces))
             .ReverseMap();
 
         CreateMap<Coach, KeyValuePairs>()
@@ -31,7 +31,7 @@ public class CoachClassProfile : Profile
             .ForMember(dest => dest.Location, o => o.MapFrom(src => src.Location))
             .ForMember(dest => dest.ClassFrom, o => o.MapFrom(src => src.ClassDate))
             .ForMember(dest => dest.ClassTo, o => o.MapFrom(src => src.ClassDate.AddMinutes(src.Duration)))
-            .ForMember(dest => dest.AvailbleSpaces, o => o.MapFrom(src => src.AvailbleSpaces))
+            .ForMember(dest => dest.AvailableSpaces, o => o.MapFrom(src => src.AvailableSpaces))
             .ReverseMap();
         
         CreateMap<GetCoachClassResponseViewModel, CoachClass>()
@@ -41,7 +41,7 @@ public class CoachClassProfile : Profile
             .ForMember(dest => dest.Location, o => o.MapFrom(src => src.Location))
             .ForMember(dest => dest.ClassFrom, o => o.MapFrom(src => src.ClassDate))
             .ForMember(dest => dest.ClassTo, o => o.MapFrom(src => src.ClassDate.AddMinutes(src.Duration)))
-            .ForMember(dest => dest.AvailbleSpaces, o => o.MapFrom(src => src.AvailbleSpaces))
+            .ForMember(dest => dest.AvailableSpaces, o => o.MapFrom(src => src.AvailableSpaces))
             .ReverseMap();
     }
 }
