@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Repository.Helpers;
 using Service.Interface;
 using Service.ViewModels.Coach;
 using Service.ViewModels.CoachClass;
@@ -21,5 +22,11 @@ public class CoachClassesController : ControllerBase
     public async Task<AddCoachClassResponseViewModel> AddCoachClass([FromBody] AddCoachClassRequestViewModel coachClassRequestViewModel)
     {
         return await _coachClassService.AddCoachClass(coachClassRequestViewModel);
+    }
+    
+    [HttpGet]
+    public async Task<PagedResult<GetCoachClassResponseViewModel>> GetCoachClasses([FromQuery] GetCoachClassRequestViewModel getCoachClassRequestViewModel)
+    {
+        return await _coachClassService.GetCoachClasses(getCoachClassRequestViewModel);
     }
 }

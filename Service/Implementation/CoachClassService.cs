@@ -1,6 +1,8 @@
 using System.Net;
 using AutoMapper;
 using Domain.Entities;
+using Repository.Extensions;
+using Repository.Helpers;
 using Repository.Interface;
 using Service.Exceptions;
 using Service.Interface;
@@ -33,5 +35,15 @@ public class CoachClassService : ICoachClassService
         var coachClass = await _unitOfWork.CoachClasses.AddCoachClass(coachClassToAdd);
 
         return _mapper.Map<AddCoachClassResponseViewModel>(coachClass);
+    }
+
+    public async Task<PagedResult<GetCoachClassResponseViewModel>> GetCoachClasses(GetCoachClassRequestViewModel getCoachClassRequest)
+    {
+        var coachCLassesPaged = await _unitOfWork.CoachClasses.GetCoachClasses(getCoachClassRequest.searchTerm,
+                                                                                getCoachClassRequest.PageNumber, getCoachClassRequest.PageSize);
+        var coachClasses = _mapper.Map<List<GetCoachClassResponseViewModel>>(coachCLassesPaged.Data);
+
+        return coachClasses.GetPagedViewModel<GetCoachClassResponseViewModel>(getCoachClassRequest.PageNumber,
+                                                                      getCoachClassRequest.PageSize);
     }
 }
