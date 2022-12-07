@@ -40,8 +40,16 @@ public class CoachClassService : ICoachClassService
     public async Task<PagedResult<GetCoachClassResponseViewModel>> GetCoachClasses(GetCoachClassRequestViewModel getCoachClassRequest)
     {
         var coachCLassesPaged = await _unitOfWork.CoachClasses.GetCoachClasses(getCoachClassRequest.searchTerm,
-                                                                                getCoachClassRequest.PageNumber, getCoachClassRequest.PageSize);
+                                                                               getCoachClassRequest.PageNumber, 
+                                                                               getCoachClassRequest.PageSize);
         var coachClasses = _mapper.Map<List<GetCoachClassResponseViewModel>>(coachCLassesPaged.Data);
+        
+        // Calculate Duration
+        coachClasses.ForEach(coachClass =>
+        {
+            var classTo = coachCLassesPaged.Data.SingleOrDefault(cc => cc.Id == coachClass.Id).ClassTo;
+            coachClass.Duration = (classTo - coachClass.ClassDate).TotalMinutes;
+        });
 
         return coachClasses.GetPagedViewModel<GetCoachClassResponseViewModel>(coachCLassesPaged.TotalItems,coachCLassesPaged.CurrentPage,
                                                                       coachCLassesPaged.ItemsPerPage);

@@ -35,6 +35,7 @@ public class CoachClassProfile : Profile
             .ReverseMap();
         
         CreateMap<GetCoachClassResponseViewModel, CoachClass>()
+            .ForMember(dest => dest.Id, o => o.MapFrom(src => src.Id))
             .ForMember(dest => dest.Coach, o => o.MapFrom(src => src.Coach))
             .ForMember(dest => dest.Title, o => o.MapFrom(src => src.Title))
             .ForMember(dest => dest.Description, o => o.MapFrom(src => src.Description))
