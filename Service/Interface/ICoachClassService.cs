@@ -9,4 +9,6 @@ public interface ICoachClassService
 
     Task<PagedResult<GetCoachClassResponseViewModel>> GetCoachClasses(
         GetCoachClassRequestViewModel getCoachClassRequest);
+    
+    Task<GetCoachClassResponseViewModel> GetCoachClassById(long coachClassId);
 }

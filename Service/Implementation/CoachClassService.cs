@@ -54,4 +54,18 @@ public class CoachClassService : ICoachClassService
         return coachClasses.GetPagedViewModel<GetCoachClassResponseViewModel>(coachCLassesPaged.TotalItems,coachCLassesPaged.CurrentPage,
                                                                       coachCLassesPaged.ItemsPerPage);
     }
+    
+    public async Task<GetCoachClassResponseViewModel> GetCoachClassById(long coachClassId)
+    {
+        var coachClass = await _unitOfWork.CoachClasses.GetCoachClassById(coachClassId);
+        
+        if (coachClass is null)
+            throw new APIException((int)HttpStatusCode.NotFound, "Invalid CoachClassId");
+
+        var coachClassResponse =  _mapper.Map<GetCoachClassResponseViewModel>(coachClass);
+
+        coachClassResponse.Duration = (coachClass.ClassFrom - coachClass.ClassTo).TotalMinutes;
+
+        return coachClassResponse;
+    }
 }

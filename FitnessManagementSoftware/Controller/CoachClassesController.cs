@@ -31,4 +31,10 @@ public class CoachClassesController : ControllerBase
     {
         return await _coachClassService.GetCoachClasses(getCoachClassRequestViewModel);
     }
+    
+    [HttpGet("{coachClassId}")]
+    public async Task<GetCoachClassResponseViewModel> GetCoachClassById(long coachClassId)
+    {
+        return await _coachClassService.GetCoachClassById(coachClassId);
+    }
 }

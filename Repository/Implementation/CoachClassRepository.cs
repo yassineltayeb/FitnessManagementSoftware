@@ -39,4 +39,9 @@ public class CoachClassRepository : ICoachClassRepository
 
         return await coachClassesQuery.GetPaged(pageNumber, pageSize);
     }
+    
+    public async Task<CoachClass> GetCoachClassById(long coachClassId)
+    {
+        return await _dbContext.CoachClasses.SingleOrDefaultAsync(cc => cc.Id == coachClassId);
+    }
 }
