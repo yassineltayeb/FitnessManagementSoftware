@@ -64,7 +64,7 @@ public class CoachClassService : ICoachClassService
 
         var coachClassResponse =  _mapper.Map<GetCoachClassResponseViewModel>(coachClass);
 
-        coachClassResponse.Duration = (coachClass.ClassFrom - coachClass.ClassTo).TotalMinutes;
+        coachClassResponse.Duration = (coachClass.ClassTo - coachClass.ClassFrom).TotalMinutes;
 
         return coachClassResponse;
     }
