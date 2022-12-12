@@ -37,4 +37,10 @@ public class CoachClassesController : ControllerBase
     {
         return await _coachClassService.GetCoachClassById(coachClassId);
     }
+    
+    [HttpPut("{coachClassId}")]
+    public async Task<GetCoachClassResponseViewModel> UpdateCoachClass(long coachClassId, [FromBody] AddCoachClassRequestViewModel coachClassRequestViewModel)
+    {
+        return await _coachClassService.UpdateCoachClass(coachClassId, coachClassRequestViewModel);
+    }
 }

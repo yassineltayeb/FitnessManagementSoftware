@@ -69,7 +69,7 @@ public class CoachService : ICoachService
         if (coachToUpdate is null)
             throw new APIException((int)HttpStatusCode.NotFound, "Invalid UserId");
 
-        coachToUpdate = _mapper.Map<UpdateCoachRequestViewModel, Coach>(updateCoachRequestViewModel, coachToUpdate);
+        coachToUpdate = _mapper.Map(updateCoachRequestViewModel, coachToUpdate);
 
         coachToUpdate.UpdatedAt = DateTimeOffset.Now.ToUnixTimeMilliseconds();
 

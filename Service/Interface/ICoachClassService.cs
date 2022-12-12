@@ -11,4 +11,7 @@ public interface ICoachClassService
         GetCoachClassRequestViewModel getCoachClassRequest);
     
     Task<GetCoachClassResponseViewModel> GetCoachClassById(long coachClassId);
+
+    Task<GetCoachClassResponseViewModel> UpdateCoachClass(long coachClassId,
+        AddCoachClassRequestViewModel addCoachClassRequest);
 }

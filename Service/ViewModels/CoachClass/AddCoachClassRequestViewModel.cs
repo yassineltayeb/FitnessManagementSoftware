@@ -54,7 +54,7 @@ public class AddCoachClassRequestViewModel : IValidatableObject
 
             RuleFor(c => c.AvailableSpaces)
                .NotEmpty()
-               .WithMessage("Availble Spaces Is required");
+               .WithMessage("Available Spaces Is required");
         }
     }
 }
