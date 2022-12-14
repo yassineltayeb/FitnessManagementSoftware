@@ -4,11 +4,12 @@ namespace Service.ViewModels.CoachClass;
 
 public class AddCoachClassResponseViewModel
 {
-    public string Title { get; set; }
-    public string Description { get; set; }
-    public string Location { get; set; }
+    public int StatusId { get; set; }
+    public string Title { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
+    public string Location { get; set; } = string.Empty;
     public DateTime ClassDate { get; set; }
     public int Duration { get; set; }
     public int AvailableSpaces { get; set; }
-    public KeyValuePairs Coach { get; set; }
+    public KeyValuePairs? Coach { get; set; }
 }

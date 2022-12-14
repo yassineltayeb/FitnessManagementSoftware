@@ -26,6 +26,7 @@ public class CoachClassProfile : Profile
 
         CreateMap<AddCoachClassResponseViewModel, CoachClass>()
             .ForMember(dest => dest.Coach, o => o.MapFrom(src => src.Coach))
+            .ForMember(dest => dest.StatusId, o => o.MapFrom(src => src.StatusId))
             .ForMember(dest => dest.Title, o => o.MapFrom(src => src.Title))
             .ForMember(dest => dest.Description, o => o.MapFrom(src => src.Description))
             .ForMember(dest => dest.Location, o => o.MapFrom(src => src.Location))
@@ -37,6 +38,7 @@ public class CoachClassProfile : Profile
         CreateMap<GetCoachClassResponseViewModel, CoachClass>()
             .ForMember(dest => dest.Id, o => o.MapFrom(src => src.Id))
             .ForMember(dest => dest.Coach, o => o.MapFrom(src => src.Coach))
+            .ForMember(dest => dest.StatusId, o => o.MapFrom(src => src.StatusId))
             .ForMember(dest => dest.Title, o => o.MapFrom(src => src.Title))
             .ForMember(dest => dest.Description, o => o.MapFrom(src => src.Description))
             .ForMember(dest => dest.Location, o => o.MapFrom(src => src.Location))
