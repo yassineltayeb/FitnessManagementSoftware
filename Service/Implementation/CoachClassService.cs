@@ -1,6 +1,7 @@
 using System.Net;
 using AutoMapper;
 using Domain.Entities;
+using Repository.Enum;
 using Repository.Extensions;
 using Repository.Helpers;
 using Repository.Interface;
@@ -29,11 +30,13 @@ public class CoachClassService : ICoachClassService
             throw new APIException((int)HttpStatusCode.NotFound, "Invalid CoachId");
 
         var coachClassToAdd = _mapper.Map<CoachClass>(addCoachClassRequest);
-   
+
+        coachClassToAdd.StatusId = (int)CoachClassStatusEnum.Booking;
+
         // Update the UTC time
         coachClassToAdd.ClassFrom = coachClassToAdd.ClassFrom.AddHours(4);
         coachClassToAdd.ClassTo = coachClassToAdd.ClassTo.AddHours(4);
-        
+
         coachClassToAdd.CreatedAt = DateTimeOffset.Now.ToUnixTimeMilliseconds();
 
         var coachClass = await _unitOfWork.CoachClasses.AddCoachClass(coachClassToAdd);
@@ -44,10 +47,10 @@ public class CoachClassService : ICoachClassService
     public async Task<PagedResult<GetCoachClassResponseViewModel>> GetCoachClasses(GetCoachClassRequestViewModel getCoachClassRequest)
     {
         var coachCLassesPaged = await _unitOfWork.CoachClasses.GetCoachClasses(getCoachClassRequest.searchTerm,
-                                                                               getCoachClassRequest.PageNumber, 
+                                                                               getCoachClassRequest.PageNumber,
                                                                                getCoachClassRequest.PageSize);
         var coachClasses = _mapper.Map<List<GetCoachClassResponseViewModel>>(coachCLassesPaged.Data);
-        
+
         // Calculate Duration
         coachClasses.ForEach(coachClass =>
         {
@@ -55,18 +58,18 @@ public class CoachClassService : ICoachClassService
             coachClass.Duration = (classTo - coachClass.ClassDate).TotalMinutes;
         });
 
-        return coachClasses.GetPagedViewModel(coachCLassesPaged.TotalItems,coachCLassesPaged.CurrentPage,
+        return coachClasses.GetPagedViewModel(coachCLassesPaged.TotalItems, coachCLassesPaged.CurrentPage,
                                                                       coachCLassesPaged.ItemsPerPage);
     }
-    
+
     public async Task<GetCoachClassResponseViewModel> GetCoachClassById(long coachClassId)
     {
         var coachClass = await _unitOfWork.CoachClasses.GetCoachClassById(coachClassId);
-        
+
         if (coachClass is null)
             throw new APIException((int)HttpStatusCode.NotFound, "Invalid CoachClassId");
 
-        var coachClassResponse =  _mapper.Map<GetCoachClassResponseViewModel>(coachClass);
+        var coachClassResponse = _mapper.Map<GetCoachClassResponseViewModel>(coachClass);
 
         coachClassResponse.Duration = (coachClass.ClassTo - coachClass.ClassFrom).TotalMinutes;
 
@@ -76,13 +79,13 @@ public class CoachClassService : ICoachClassService
     public async Task<GetCoachClassResponseViewModel> UpdateCoachClass(long coachClassId, AddCoachClassRequestViewModel addCoachClassRequest)
     {
         var coachClass = await _unitOfWork.CoachClasses.GetCoachClassById(coachClassId);
-        
+
         if (coachClass is null)
             throw new APIException((int)HttpStatusCode.NotFound, "Invalid CoachClassId");
 
         var coachClassToUpdate =
             _mapper.Map(addCoachClassRequest, coachClass);
-        
+
         // Update the UTC time
         coachClassToUpdate.ClassFrom = coachClassToUpdate.ClassFrom.AddHours(4);
         coachClassToUpdate.ClassTo = coachClassToUpdate.ClassTo.AddHours(4);

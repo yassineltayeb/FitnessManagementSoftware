@@ -2,7 +2,7 @@
 
 namespace Repository.Enum;
 
-public enum CoachClassTypeEnum
+public enum CoachClassStatusEnum
 {
     [Description("Booking")] Booking = 1,
     [Description("Fully Booked")] FullyBooked = 2,
