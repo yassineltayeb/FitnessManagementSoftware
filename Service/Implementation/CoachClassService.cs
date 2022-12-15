@@ -108,4 +108,16 @@ public class CoachClassService : ICoachClassService
 
         return _mapper.Map<GetCoachClassResponseViewModel>(updatedCoachClass);
     }
+
+    public async Task<List<GetCoachClassResponseViewModel>> GetCoachClassesInProcess()
+    {
+        var coachClasses = await _unitOfWork.CoachClasses.GetCoachClassesInProcess();
+
+        return _mapper.Map<List<GetCoachClassResponseViewModel>>(coachClasses);
+    }
+
+    public async Task CoachClassesBulkUpdateStatus(List<long> coachClassIds, int statusId)
+    {
+         await _unitOfWork.CoachClasses.CoachClassesBulkUpdateStatus(coachClassIds, statusId);
+    }
 }

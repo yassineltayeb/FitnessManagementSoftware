@@ -17,4 +17,6 @@ public interface ICoachClassService
         AddCoachClassRequestViewModel addCoachClassRequest);
 
     Task<GetCoachClassResponseViewModel> UpdateCoachClassStatus(long coachClassId, CoachClassStatusEnum statusId);
+    Task<List<GetCoachClassResponseViewModel>> GetCoachClassesInProcess();
+    Task CoachClassesBulkUpdateStatus(List<long> coachClassIds, int statusId);
 }

@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Repository.Enum;
 using Repository.Extensions;
 using Repository.Helpers;
 using Repository.Interface;
@@ -53,5 +54,29 @@ public class CoachClassRepository : ICoachClassRepository
         await _dbContext.SaveChangesAsync();
 
         return coachClass;
+    }
+
+    public async Task<List<CoachClass>> GetCoachClassesInProcess()
+    {
+        var inProcessStatusIds = new List<int>
+        {
+            (int)CoachClassStatusEnum.Booking,
+            (int)CoachClassStatusEnum.OnProgress
+        };
+
+        var coachClasses = await _dbContext.CoachClasses
+                                            .Where(cc => inProcessStatusIds.Contains(cc.StatusId))
+                                            .Include(cc => cc.Coach)
+                                            .ToListAsync();
+
+
+        return coachClasses;
+    }
+
+    public async Task CoachClassesBulkUpdateStatus(List<long> coachClassIds, int statusId)
+    {
+        var coachClasses = await _dbContext.CoachClasses
+                                            .Where(cc => coachClassIds.Contains(cc.Id))
+                                            .ExecuteUpdateAsync(cc => cc.SetProperty(s => s.StatusId, s => statusId));
     }
 }
