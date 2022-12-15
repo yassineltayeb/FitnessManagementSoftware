@@ -78,5 +78,6 @@ public class CoachClassRepository : ICoachClassRepository
         var coachClasses = await _dbContext.CoachClasses
                                             .Where(cc => coachClassIds.Contains(cc.Id))
                                             .ExecuteUpdateAsync(cc => cc.SetProperty(s => s.StatusId, s => statusId));
+        await _dbContext.SaveChangesAsync();
     }
 }

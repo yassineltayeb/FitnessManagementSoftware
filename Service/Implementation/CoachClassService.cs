@@ -34,8 +34,8 @@ public class CoachClassService : ICoachClassService
         coachClassToAdd.StatusId = (int)CoachClassStatusEnum.Booking;
 
         // Update the UTC time
-        coachClassToAdd.ClassFrom = coachClassToAdd.ClassFrom.AddHours(4);
-        coachClassToAdd.ClassTo = coachClassToAdd.ClassTo.AddHours(4);
+        //coachClassToAdd.ClassFrom = coachClassToAdd.ClassFrom.AddHours(4);
+        //coachClassToAdd.ClassTo = coachClassToAdd.ClassTo.AddHours(4);
 
         coachClassToAdd.CreatedAt = DateTimeOffset.Now.ToUnixTimeMilliseconds();
 
@@ -87,8 +87,8 @@ public class CoachClassService : ICoachClassService
             _mapper.Map(addCoachClassRequest, coachClass);
 
         // Update the UTC time
-        coachClassToUpdate.ClassFrom = coachClassToUpdate.ClassFrom.AddHours(4);
-        coachClassToUpdate.ClassTo = coachClassToUpdate.ClassTo.AddHours(4);
+        //coachClassToUpdate.ClassFrom = coachClassToUpdate.ClassFrom.AddHours(4);
+        //coachClassToUpdate.ClassTo = coachClassToUpdate.ClassTo.AddHours(4);
 
         var updatedCoachClass = await _unitOfWork.CoachClasses.Update(coachClassToUpdate);
 

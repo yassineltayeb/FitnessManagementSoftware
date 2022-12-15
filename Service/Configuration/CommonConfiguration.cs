@@ -36,7 +36,7 @@ public static class CommonConfiguration
 
             configure
                 .AddJob<UpdateCoachClassStatusJob>(jobKey)
-                .AddTrigger(trigger => trigger.ForJob(jobKey).WithSimpleSchedule(schedule => schedule.WithIntervalInSeconds(3).RepeatForever()));
+                .AddTrigger(trigger => trigger.ForJob(jobKey).WithSimpleSchedule(schedule => schedule.WithIntervalInMinutes(1).RepeatForever()));
 
             configure.UseMicrosoftDependencyInjectionJobFactory();
         });
