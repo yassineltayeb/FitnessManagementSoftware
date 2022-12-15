@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Repository.Enum;
 using Repository.Helpers;
 using Service.Interface;
 using Service.ViewModels.Coach;
@@ -31,16 +32,22 @@ public class CoachClassesController : ControllerBase
     {
         return await _coachClassService.GetCoachClasses(getCoachClassRequestViewModel);
     }
-    
+
     [HttpGet("{coachClassId}")]
     public async Task<GetCoachClassResponseViewModel> GetCoachClassById(long coachClassId)
     {
         return await _coachClassService.GetCoachClassById(coachClassId);
     }
-    
+
     [HttpPut("{coachClassId}")]
     public async Task<GetCoachClassResponseViewModel> UpdateCoachClass(long coachClassId, [FromBody] AddCoachClassRequestViewModel coachClassRequestViewModel)
     {
         return await _coachClassService.UpdateCoachClass(coachClassId, coachClassRequestViewModel);
+    }
+
+    [HttpPut("{coachClassId}/status/{statusId}")]
+    public async Task<GetCoachClassResponseViewModel> UpdateCoachClassStatus(long coachClassId, CoachClassStatusEnum statusId)
+    {
+        return await _coachClassService.UpdateCoachClassStatus(coachClassId, statusId);
     }
 }

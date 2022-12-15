@@ -5,9 +5,7 @@ namespace Repository.Enum;
 public enum CoachClassStatusEnum
 {
     [Description("Booking")] Booking = 1,
-    [Description("Fully Booked")] FullyBooked = 2,
-    [Description("On Progress")] OnProgress = 3,
-    [Description("Finished")] Finished = 4,
-    [Description("Expired")] Expired = 5,
-    [Description("Canceled")] Canceled = 6,
+    [Description("On Progress")] OnProgress = 2,
+    [Description("Finished")] Finished = 3,
+    [Description("Canceled")] Canceled = 4,
 }

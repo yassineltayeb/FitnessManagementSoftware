@@ -42,7 +42,9 @@ public class CoachClassRepository : ICoachClassRepository
 
     public async Task<CoachClass> GetCoachClassById(long coachClassId)
     {
-        return await _dbContext.CoachClasses.SingleOrDefaultAsync(cc => cc.Id == coachClassId);
+        return await _dbContext.CoachClasses
+                                .Include(cc => cc.Coach)
+                                .SingleOrDefaultAsync(cc => cc.Id == coachClassId);
     }
 
     public async Task<CoachClass> Update(CoachClass coachClass)

@@ -94,4 +94,18 @@ public class CoachClassService : ICoachClassService
 
         return _mapper.Map<GetCoachClassResponseViewModel>(updatedCoachClass);
     }
+
+    public async Task<GetCoachClassResponseViewModel> UpdateCoachClassStatus(long coachClassId, CoachClassStatusEnum statusId)
+    {
+        var coachClass = await _unitOfWork.CoachClasses.GetCoachClassById(coachClassId);
+
+        if (coachClass is null)
+            throw new APIException((int)HttpStatusCode.NotFound, "Invalid CoachClassId");
+
+        coachClass.StatusId = (int)statusId;
+
+        var updatedCoachClass = await _unitOfWork.CoachClasses.Update(coachClass);
+
+        return _mapper.Map<GetCoachClassResponseViewModel>(updatedCoachClass);
+    }
 }
