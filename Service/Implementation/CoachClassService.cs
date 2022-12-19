@@ -33,10 +33,6 @@ public class CoachClassService : ICoachClassService
 
         coachClassToAdd.StatusId = (int)CoachClassStatusEnum.Booking;
 
-        // Update the UTC time
-        //coachClassToAdd.ClassFrom = coachClassToAdd.ClassFrom.AddHours(4);
-        //coachClassToAdd.ClassTo = coachClassToAdd.ClassTo.AddHours(4);
-
         coachClassToAdd.CreatedAt = DateTimeOffset.Now.ToUnixTimeMilliseconds();
 
         var coachClass = await _unitOfWork.CoachClasses.AddCoachClass(coachClassToAdd);
@@ -85,11 +81,7 @@ public class CoachClassService : ICoachClassService
 
         var coachClassToUpdate =
             _mapper.Map(addCoachClassRequest, coachClass);
-
-        // Update the UTC time
-        //coachClassToUpdate.ClassFrom = coachClassToUpdate.ClassFrom.AddHours(4);
-        //coachClassToUpdate.ClassTo = coachClassToUpdate.ClassTo.AddHours(4);
-
+             
         var updatedCoachClass = await _unitOfWork.CoachClasses.Update(coachClassToUpdate);
 
         return _mapper.Map<GetCoachClassResponseViewModel>(updatedCoachClass);
@@ -118,6 +110,19 @@ public class CoachClassService : ICoachClassService
 
     public async Task CoachClassesBulkUpdateStatus(List<long> coachClassIds, int statusId)
     {
-         await _unitOfWork.CoachClasses.CoachClassesBulkUpdateStatus(coachClassIds, statusId);
+        await _unitOfWork.CoachClasses.CoachClassesBulkUpdateStatus(coachClassIds, statusId);
+    }
+
+    public async Task<CoachClassStatusSummaryViewModel> CoachClassesStatusCount(long coachClassId)
+    {
+        var coachClassStatusSummaryViewModel = new CoachClassStatusSummaryViewModel()
+        {
+            Booking = await _unitOfWork.CoachClasses.CoachClassesStatusCount(coachClassId, (int)CoachClassStatusEnum.Booking),
+            OnProgress = await _unitOfWork.CoachClasses.CoachClassesStatusCount(coachClassId, (int)CoachClassStatusEnum.OnProgress),
+            Finished = await _unitOfWork.CoachClasses.CoachClassesStatusCount(coachClassId, (int)CoachClassStatusEnum.Finished),
+            Canceled = await _unitOfWork.CoachClasses.CoachClassesStatusCount(coachClassId, (int)CoachClassStatusEnum.Canceled)
+        };
+
+        return coachClassStatusSummaryViewModel;
     }
 }

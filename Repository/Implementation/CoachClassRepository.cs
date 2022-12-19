@@ -80,4 +80,11 @@ public class CoachClassRepository : ICoachClassRepository
                                             .ExecuteUpdateAsync(cc => cc.SetProperty(s => s.StatusId, s => statusId));
         await _dbContext.SaveChangesAsync();
     }
+
+    public async Task<int> CoachClassesStatusCount(long coachId, int statusId)
+    {
+        return await _dbContext.CoachClasses
+                                 .CountAsync(cc => cc.CoachId == coachId &&
+                                             cc.StatusId == statusId);
+    }
 }

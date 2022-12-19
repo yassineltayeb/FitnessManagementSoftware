@@ -50,4 +50,10 @@ public class CoachClassesController : ControllerBase
     {
         return await _coachClassService.UpdateCoachClassStatus(coachClassId, statusId);
     }
+
+    [HttpGet("{coachClassId}/statusSummary")]
+    public async Task<CoachClassStatusSummaryViewModel> GetCoachClassesStatusCount(long coachClassId)
+    {
+        return await _coachClassService.CoachClassesStatusCount(coachClassId);
+    }
 }
