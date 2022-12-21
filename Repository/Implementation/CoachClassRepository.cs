@@ -49,7 +49,7 @@ public class CoachClassRepository : ICoachClassRepository
             coachClassesQuery = coachClassesQuery.Where(cc => cc.ClassFrom >= ConvertDateOnlyToDateTime(classFrom ?? new DateOnly()));
 
         if (classTo != null)
-            coachClassesQuery = coachClassesQuery.Where(cc => cc.ClassTo >= ConvertDateOnlyToDateTime(classTo ?? new DateOnly()));
+            coachClassesQuery = coachClassesQuery.Where(cc => cc.ClassTo <= ConvertDateOnlyToDateTime(classTo ?? new DateOnly()));
 
         return await coachClassesQuery.GetPaged(pageNumber, pageSize);
     }
