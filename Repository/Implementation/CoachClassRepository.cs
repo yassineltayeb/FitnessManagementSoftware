@@ -24,7 +24,9 @@ public class CoachClassRepository : ICoachClassRepository
         return coachClass;
     }
 
-    public async Task<PagedResult<CoachClass>> GetCoachClasses(string searchTerm, int pageNumber, int pageSize)
+    public async Task<PagedResult<CoachClass>> GetCoachClasses(string searchTerm, List<int> statusIds,
+        DateOnly? classFrom, DateOnly? classTo,
+        int pageNumber, int pageSize)
     {
         var coachClassesQuery = _dbContext.CoachClasses
             .Include(cc => cc.Coach)
@@ -37,6 +39,17 @@ public class CoachClassRepository : ICoachClassRepository
                              cc.Description.Contains(searchTerm) ||
                              cc.Location.Contains(searchTerm));
         }
+
+        if (statusIds.Count != 0)
+        {
+            coachClassesQuery = coachClassesQuery.Where(cc => statusIds.Contains(cc.StatusId));
+        }
+
+        if (classFrom != null)
+            coachClassesQuery = coachClassesQuery.Where(cc => cc.ClassFrom >= ConvertDateOnlyToDateTime(classFrom ?? new DateOnly()));
+
+        if (classTo != null)
+            coachClassesQuery = coachClassesQuery.Where(cc => cc.ClassTo >= ConvertDateOnlyToDateTime(classTo ?? new DateOnly()));
 
         return await coachClassesQuery.GetPaged(pageNumber, pageSize);
     }
@@ -86,5 +99,10 @@ public class CoachClassRepository : ICoachClassRepository
         return await _dbContext.CoachClasses
                                  .CountAsync(cc => cc.CoachId == coachId &&
                                              cc.StatusId == statusId);
+    }
+
+    private DateTime ConvertDateOnlyToDateTime(DateOnly date)
+    {
+        return date.ToDateTime(TimeOnly.Parse("00.00 AM"));
     }
 }

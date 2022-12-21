@@ -1,3 +1,4 @@
+using System;
 using System.Net;
 using AutoMapper;
 using Domain.Entities;
@@ -42,7 +43,16 @@ public class CoachClassService : ICoachClassService
 
     public async Task<PagedResult<GetCoachClassResponseViewModel>> GetCoachClasses(GetCoachClassRequestViewModel getCoachClassRequest)
     {
+        if (getCoachClassRequest.StatusIds.Count!=0)
+        {
+            if (!getCoachClassRequest.StatusIds.All(x => Enum.IsDefined(typeof(CoachClassStatusEnum), x)))
+                throw new APIException((int)HttpStatusCode.BadGateway, "Invalid StatusIds");
+        }
+
         var coachCLassesPaged = await _unitOfWork.CoachClasses.GetCoachClasses(getCoachClassRequest.searchTerm,
+                                                                               getCoachClassRequest.StatusIds,
+                                                                               getCoachClassRequest.ClassFrom,
+                                                                               getCoachClassRequest.ClassTo,
                                                                                getCoachClassRequest.PageNumber,
                                                                                getCoachClassRequest.PageSize);
         var coachClasses = _mapper.Map<List<GetCoachClassResponseViewModel>>(coachCLassesPaged.Data);
